@@ -717,6 +717,90 @@ a {
   font-weight: 600;
 }
 
+/* Contact & Footer Styles */
+.contact-section {
+  text-align: center;
+  padding-bottom: 3rem;
+}
+
+.contact-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.contact-subtitle {
+  font-size: 1rem;
+  max-width: 500px;
+  margin-bottom: 2rem;
+  color: var(--text-secondary);
+}
+
+.email-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 3rem;
+}
+
+@media (min-width: 768px) {
+  .email-box {
+    flex-direction: row;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 0.5rem 0.5rem 0.5rem 1.5rem;
+    background: var(--card-bg);
+  }
+}
+
+.email-link {
+  font-family: var(--font-title);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  border-bottom: 2px solid transparent;
+}
+
+.email-link:hover {
+  border-bottom-color: var(--text-primary);
+}
+
+@media (min-width: 768px) {
+  .email-link {
+    font-size: 1.25rem;
+  }
+}
+
+.btn-copy {
+  padding: 0.5rem 1rem;
+  font-size: 0.8125rem;
+}
+
+.btn-copy.copied {
+  background: var(--text-primary);
+  color: var(--bg);
+  border-color: var(--text-primary);
+}
+
+.contact-links {
+  display: flex;
+  gap: 1.5rem;
+  margin-bottom: 4rem;
+}
+
+.contact-links a {
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+.copyright {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+
 
 
 
