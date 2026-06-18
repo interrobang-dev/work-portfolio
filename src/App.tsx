@@ -1,11 +1,12 @@
 import Header from './components/Header';
 import Hero from './components/Hero';
 import About from './components/About';
-import { profileData } from './data/portfolioData';
+import Skills from './components/Skills';
+import Experience from './components/Experience';
+import { profileData, skillsData, experienceData } from './data/portfolioData';
 
 function App() {
   const activeSection = 'about';
-
 
   return (
     <>
@@ -18,13 +19,8 @@ function App() {
         {/* About Section */}
         <About profile={profileData} />
 
-        {/* Skills Section Placeholder */}
-        <section id="skills" className="section border-top">
-          <div className="container">
-            <h2>Skills</h2>
-            <p style={{ color: 'var(--text-muted)' }}>Skills 컴포넌트 구현 대기 중...</p>
-          </div>
-        </section>
+        {/* Skills Section */}
+        <Skills skills={skillsData} />
 
         {/* Projects Section Placeholder */}
         <section id="projects" className="section border-top">
@@ -34,13 +30,9 @@ function App() {
           </div>
         </section>
 
-        {/* Experience Section Placeholder */}
-        <section id="experience" className="section border-top">
-          <div className="container">
-            <h2>Experience</h2>
-            <p style={{ color: 'var(--text-muted)' }}>Experience 컴포넌트 구현 대기 중...</p>
-          </div>
-        </section>
+        {/* Experience Section */}
+        <Experience experienceList={experienceData} />
+
 
         {/* Contact Section Placeholder */}
         <section id="contact" className="section border-top">
