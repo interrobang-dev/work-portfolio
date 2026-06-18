@@ -17,7 +17,7 @@ const Header: React.FC<HeaderProps> = ({ activeSection }) => {
     <header className="site-header">
       <div className="container header-container">
         <a href="#about" className="logo">
-          K.B
+          CJK.Portfolio
         </a>
         <nav className="nav-menu">
           {navItems.map((item) => (

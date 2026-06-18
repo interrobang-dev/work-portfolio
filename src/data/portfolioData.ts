@@ -1,13 +1,13 @@
 import type { Profile, SkillCategory, Project, Experience } from './types';
 
 export const profileData: Profile = {
-  name: "김백엔",
-  englishName: "Backend Kim",
+  name: "천준기",
+  englishName: "Chun Joon Ki",
   title: "탄탄한 기본기로 성능을 개선하고, 모던 기술로 가치를 연결하는 풀스택 엔지니어",
   shortBio: "레거시 시스템의 복잡한 쿼리와 비효율적인 비즈니스 로직을 분석하여 성능을 수배 이상 향상시키는 일에 보람을 느낍니다. 이에 안주하지 않고 React와 TypeScript, Docker 등 최신 기술 스택을 직접 탐구하며 설계 역량을 키워나가는 자기주도적 엔지니어입니다.",
-  email: "developer.kim@example.com",
-  github: "https://github.com/example-github",
-  blog: "https://velog.io/@example-blog"
+  email: "joonki.deb@gmail.com",
+  github: "https://github.com/interrobang-dev",
+  blog: "https://interrobang.tistory.com/"
 };
 
 export const skillsData: SkillCategory[] = [
@@ -20,12 +20,12 @@ export const skillsData: SkillCategory[] = [
         description: "MVC 아키텍처 기반의 웹 API 설계와 비즈니스 로직 구현 숙련."
       },
       {
-        name: "Spring Data JPA / QueryDSL",
+        name: "Spring Data JPA",
         level: "Advanced",
         description: "영속성 컨텍스트 이해, N+1 쿼리 최적화 및 동적 쿼리 작성 경험 다수."
       },
       {
-        name: "Oracle / MySQL",
+        name: "PostgreSQL / MSSQL / MongoDB",
         level: "Advanced",
         description: "인덱싱 설계를 통한 쿼리 실행 계획 분석 및 튜닝 역량 보유."
       }
@@ -128,22 +128,23 @@ export const projectsData: Project[] = [
 
 export const experienceData: Experience[] = [
   {
-    company: "(주)테크솔루션",
-    role: "백엔드 소프트웨어 엔지니어 / 사원",
-    period: "2023.03 - 현재",
+    company: "(주)이엔지소프트",
+    role: "스마트건설팀 | 웹 개발자 / 대리",
+    period: "2023.02 - 현재",
     description: [
-      "사내 통합 운영 관리 시스템(OCMS) 백엔드 핵심 기능 개발 및 DB 튜닝.",
-      "기존 jQuery 기반 모듈 유지보수 및 레거시 리팩토링 진행.",
-      "JPA N+1 해소 및 실행 계획 수립을 통한 오라클 쿼리 튜닝 다수 수행."
+      "B2B 맞춤형 솔루션인 해상 공사 관리 시스템(OCMS)의 기능 개발 및 유지보수 총괄",
+      "오래된 레거시 코드의 안정화를 위한 리팩토링 및 시스템 성능 최적화 작업 주도",
+      "기존 고객사들의 높은 만족도를 바탕으로 신규 업체 계약 수주 연속 달성에 크게 기여"
     ]
   },
   {
-    company: "코딩캠프 아카데미",
-    role: "풀스택 엔지니어링 과정 수료",
-    period: "2022.06 - 2022.12",
+    company: "스파르타 내일배움캠프",
+    role: "백엔드 엔지니어 양성과정 이수 (조기 취업으로 잔여 과정 생략)",
+    period: "2022.10 - 2023.02",
     description: [
-      "소프트웨어 기본기 교육 과정 이수 (자료구조, 알고리즘, 데이터베이스 모델링).",
-      "자바 스프링 및 리액트 기반 팀 프로젝트 2회 수행 및 최우수 프로젝트 선정."
+      "웹 개발 기본기(HTML/CSS/JS, SQL, CS 기초) 및 Node.js 심화 과정 이수",
+      "Git을 활용한 형상관리 및 팀원 간의 소통을 조율한 협업 프로세스 경험",
+      "매일 12시간 넘게 문제를 해결하며 비전공자에서 '몰입하는 개발자'로의 확신을 얻은 시간"
     ]
   }
 ];
