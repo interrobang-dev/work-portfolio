@@ -38,12 +38,12 @@ const Contact: React.FC<ContactProps> = ({ profile }) => {
         </div>
 
         <div className="contact-links">
-          <a href={profile.github} target="_blank" rel="noopener noreferrer" className="link-hover">
-            GitHub
+          <a href={profile.github} target="_blank" rel="noopener noreferrer" className="btn btn-channel">
+            <span className="channel-emoji" style={{ marginRight: '0.375rem' }}>🐙</span> GitHub
           </a>
           {profile.blog && (
-            <a href={profile.blog} target="_blank" rel="noopener noreferrer" className="link-hover">
-              Blog
+            <a href={profile.blog} target="_blank" rel="noopener noreferrer" className="btn btn-channel">
+              <span className="channel-emoji" style={{ marginRight: '0.375rem' }}>✍️</span> Tech Blog
             </a>
           )}
         </div>
@@ -57,3 +57,4 @@ const Contact: React.FC<ContactProps> = ({ profile }) => {
 };
 
 export default Contact;
+

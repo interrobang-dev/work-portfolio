@@ -45,4 +45,25 @@ export interface Experience {
   role: string;
   period: string;
   description: string[];
+  type: 'career' | 'education';
+  logo?: string;
 }
+
+
+export interface InterviewQuestion {
+  id: string;
+  question: string;
+  answer: string;
+  description: string;
+  category: string;
+}
+
+export interface Certificate {
+  id: string;
+  name: string;
+  issuer: string;
+  date: string;
+}
+
+
+

@@ -1,11 +1,14 @@
-import type { Profile, SkillCategory, Project, Experience } from './types';
+import type { Profile, SkillCategory, Project, Experience, InterviewQuestion, Certificate } from './types';
+import engsoftLogo from '../assets/engsoft_logo.png';
+import spartaLogo from '../assets/sparta_logo.png';
+import kuLogo from '../assets/ku_logo.png';
 
 export const profileData: Profile = {
   name: "천준기",
   englishName: "Chun Joon Ki",
   title: "탄탄한 기본기로 성능을 개선하고, 모던 기술로 가치를 연결하는 풀스택 엔지니어",
   shortBio: "레거시 시스템의 복잡한 쿼리와 비효율적인 비즈니스 로직을 분석하여 성능을 수배 이상 향상시키는 일에 보람을 느낍니다. 이에 안주하지 않고 React와 TypeScript, Docker 등 최신 기술 스택을 직접 탐구하며 설계 역량을 키워나가는 자기주도적 엔지니어입니다.",
-  email: "joonki.deb@gmail.com",
+  email: "joonki.dev@gmail.com",
   github: "https://github.com/interrobang-dev",
   blog: "https://interrobang.tistory.com/"
 };
@@ -135,7 +138,9 @@ export const experienceData: Experience[] = [
       "B2B 맞춤형 솔루션인 해상 공사 관리 시스템(OCMS)의 기능 개발 및 유지보수 총괄",
       "오래된 레거시 코드의 안정화를 위한 리팩토링 및 시스템 성능 최적화 작업 주도",
       "기존 고객사들의 높은 만족도를 바탕으로 신규 업체 계약 수주 연속 달성에 크게 기여"
-    ]
+    ],
+    type: "career",
+    logo: engsoftLogo
   },
   {
     company: "스파르타 내일배움캠프",
@@ -145,6 +150,70 @@ export const experienceData: Experience[] = [
       "웹 개발 기본기(HTML/CSS/JS, SQL, CS 기초) 및 Node.js 심화 과정 이수",
       "Git을 활용한 형상관리 및 팀원 간의 소통을 조율한 협업 프로세스 경험",
       "매일 12시간 넘게 문제를 해결하며 비전공자에서 '몰입하는 개발자'로의 확신을 얻은 시간"
-    ]
+    ],
+    type: "education",
+    logo: spartaLogo
+  },
+  {
+    company: "고려대학교 (Korea Univ.)",
+    role: "건축사회환경공학 학사 및 석사 졸업",
+    period: "2016.03 - 2022.08",
+    description: [
+      "공학적 수치 해석 및 통계적 데이터 분석 기법을 학습하며 정밀한 데이터 설계 논리력 체화",
+      "현장 실무 도메인에 대한 깊은 이해를 바탕으로 스마트건설팀의 B2B 해상 공사 관리 솔루션 요구사항 분석 및 데이터 모델 설계 시 핵심적인 가치 제공"
+    ],
+    type: "education",
+    logo: kuLogo
   }
 ];
+
+
+
+export const interviewQuestions: InterviewQuestion[] = [
+  {
+    id: "q-strength",
+    question: "Q. 백엔드 엔지니어로서 가장 몰입하는 영역은 무엇인가요?",
+    answer: "레거시 분석과 성능 최적화입니다.",
+    description: "실무에서 JPA N+1 문제 해결 및 복잡한 통계 쿼리를 튜닝하여 API 응답 지연을 95% 단축했습니다. 보이지 않는 시스템의 병목을 분석하고 걷어내는 과정에서 희열을 느낍니다.",
+    category: "Core Strength"
+  },
+  {
+    id: "q-learning",
+    question: "Q. 기술을 습득하는 원칙은 무엇인가요?",
+    answer: "직접 만들어보며 체득합니다.",
+    description: "개념 이해에 그치지 않고, React/TypeScript 환경을 구축하거나 Docker 컨테이너를 로컬에 직접 띄워 테스트하며 지식을 체화합니다.",
+    category: "Learning"
+  },
+  {
+    id: "q-collaboration",
+    question: "Q. 협업 시 소통 방식은 어떤가요?",
+    answer: "끈기 있는 소통과 유연한 수용력",
+    description: "문제를 해결할 때까지 물고 늘어지는 집요함을 발휘하면서도, 설계 및 코드 리뷰 과정에서는 동료의 피드백을 유연하게 수용하여 최선의 결론을 도출합니다.",
+    category: "Collaboration"
+  },
+  {
+    id: "q-vision",
+    question: "Q. 궁극적으로 지향하는 엔지니어상은 무엇인가요?",
+    answer: "비즈니스에 가치를 더하는 아키텍트",
+    description: "기술적 화려함에 매몰되지 않고, 비즈니스의 성장 속도에 기민하게 대응할 수 있도록 아키텍처의 단순함과 확장성을 동시에 지향합니다.",
+    category: "Vision"
+  }
+];
+
+export const certificatesData: Certificate[] = [
+  {
+    id: "cert-1",
+    name: "SQL 개발자 (SQLD)",
+    issuer: "한국데이터산업진흥원",
+    date: "2022.12"
+  },
+  {
+    id: "cert-2",
+    name: "정보처리기사",
+    issuer: "한국산업인력공단",
+    date: "2022.06"
+  }
+];
+
+
+

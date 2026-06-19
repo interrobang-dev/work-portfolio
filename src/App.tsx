@@ -6,7 +6,7 @@ import Skills from './components/Skills';
 import Projects from './components/Projects';
 import Experience from './components/Experience';
 import Contact from './components/Contact';
-import { profileData, skillsData, projectsData, experienceData } from './data/portfolioData';
+import { profileData, skillsData, projectsData, experienceData, interviewQuestions, certificatesData } from './data/portfolioData';
 
 function App() {
   const [activeSection, setActiveSection] = useState('about');
@@ -51,7 +51,8 @@ function App() {
         <Hero profile={profileData} />
 
         {/* About Section */}
-        <About profile={profileData} />
+        <About profile={profileData} interviewQuestions={interviewQuestions} />
+
 
         {/* Skills Section */}
         <Skills skills={skillsData} />
@@ -60,7 +61,7 @@ function App() {
         <Projects projects={projectsData} />
 
         {/* Experience Section */}
-        <Experience experienceList={experienceData} />
+        <Experience experienceList={experienceData} certificates={certificatesData} />
 
         {/* Contact Section */}
         <Contact profile={profileData} />
@@ -68,6 +69,7 @@ function App() {
     </>
   );
 }
+
 
 export default App;
 
