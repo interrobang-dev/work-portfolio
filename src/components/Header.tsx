@@ -16,7 +16,7 @@ const Header: React.FC<HeaderProps> = ({ activeSection }) => {
   return (
     <header className="site-header">
       <div className="container header-container">
-        <a href="#about" className="logo">
+        <a href="#hero" className="logo">
           CJK.Portfolio
         </a>
         <nav className="nav-menu">

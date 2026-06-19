@@ -211,11 +211,152 @@ a {
   display: flex;
   align-items: center;
   padding: 4rem 0;
+  position: relative;
+  overflow: hidden;
+  /* 부유 도형이 컨테이너 경계 밖으로 나갈 때 스크롤바가 생기는 현상 방지 */
 }
 
 .hero-content {
   max-width: 800px;
+  position: relative;
+  z-index: 2;
+  /* 텍스트가 부유 도형(z-index: 0)보다 앞으로 위치하게 설정 */
 }
+
+/* Floating Antigravity Shapes Styles */
+.floating-shape-wrapper {
+  position: absolute;
+  pointer-events: none;
+  /* 마우스 인터랙션 방해 금지 */
+  z-index: 0;
+  will-change: transform;
+}
+
+/* 개별 도형 배치 및 애니메이션 바인딩 */
+.floating-shape-wrapper.shape-1 {
+  top: 8%;
+  left: 4%;
+  animation: float-cycle-slow 20s infinite ease-in-out;
+}
+
+.floating-shape-wrapper.shape-2 {
+  bottom: 10%;
+  right: 5%;
+  animation: float-cycle-medium 28s infinite ease-in-out;
+}
+
+.floating-shape-wrapper.shape-3 {
+  top: 15%;
+  right: 8%;
+  animation: float-cycle-fast 16s infinite ease-in-out;
+}
+
+.floating-shape-wrapper.shape-4 {
+  bottom: 25%;
+  left: 4%;
+  animation: float-cycle-medium 24s infinite ease-in-out;
+}
+
+.floating-shape-wrapper.shape-5 {
+  top: 12%;
+  left: 55%;
+  animation: float-cycle-slow 18s infinite ease-in-out;
+}
+
+.floating-shape-wrapper.shape-6 {
+  bottom: 45%;
+  right: 14%;
+  animation: float-cycle-fast 14s infinite ease-in-out;
+}
+
+/* 모바일 가독성 방어: 좁은 화면에서는 타이틀과 중첩되므로 일부 도형 숨김 */
+@media (max-width: 768px) {
+
+  .floating-shape-wrapper.shape-1,
+  .floating-shape-wrapper.shape-4,
+  .floating-shape-wrapper.shape-5,
+  .floating-shape-wrapper.shape-6 {
+    display: none;
+  }
+
+  .floating-shape-wrapper.shape-2 {
+    bottom: 5%;
+    right: 5%;
+  }
+
+  .floating-shape-wrapper.shape-3 {
+    top: 10%;
+    right: 5%;
+  }
+}
+
+
+/* 마우스 패럴랙스가 적용되는 내부 엘리먼트 */
+.floating-shape {
+  width: 100%;
+  height: 100%;
+  will-change: transform;
+}
+
+/* 마우스 움직임에 따른 패럴랙스 가중치 계산 (레이어 분리) */
+.floating-shape.parallax-deep {
+  transform: translate3d(calc(var(--mx) * -65px), calc(var(--my) * -65px), 0);
+}
+
+.floating-shape.parallax-medium {
+  transform: translate3d(calc(var(--mx) * -35px), calc(var(--my) * -35px), 0);
+}
+
+.floating-shape.parallax-light {
+  transform: translate3d(calc(var(--mx) * 50px), calc(var(--my) * 50px), 0);
+}
+
+/* Shape 2: Glow Sphere 상세 */
+.glow-sphere {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(37, 99, 235, 0.24) 0%, rgba(37, 99, 235, 0) 70%);
+  filter: blur(20px);
+}
+
+/* 둥실둥실 바운싱 및 공전 keyframes */
+@keyframes float-cycle-slow {
+
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+
+  50% {
+    transform: translateY(-25px) rotate(90deg);
+  }
+}
+
+@keyframes float-cycle-medium {
+
+  0%,
+  100% {
+    transform: translateY(0) scale(1);
+  }
+
+  50% {
+    transform: translateY(-18px) scale(1.05);
+  }
+}
+
+@keyframes float-cycle-fast {
+
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+
+  50% {
+    transform: translateY(-15px) rotate(-120deg);
+  }
+}
+
 
 .hero-badge {
   display: inline-block;
@@ -234,11 +375,36 @@ a {
   font-size: 2.75rem;
   line-height: 1.2;
   margin-bottom: 1.5rem;
+  min-height: 10rem;
+  /* 모바일 타이핑 진행 시 레이아웃 흔들림 방지 */
 }
 
 @media (min-width: 768px) {
   .hero-title {
     font-size: 3.25rem;
+    min-height: 7.8rem;
+    /* 데스크톱 타이핑 진행 시 레이아웃 흔들림 방지 */
+  }
+}
+
+/* Typing Cursor */
+.typing-cursor {
+  display: inline-block;
+  margin-left: 4px;
+  font-weight: 300;
+  color: var(--accent);
+  animation: cursor-blink-anim 0.8s infinite;
+}
+
+@keyframes cursor-blink-anim {
+
+  0%,
+  100% {
+    opacity: 0;
+  }
+
+  50% {
+    opacity: 1;
   }
 }
 
@@ -248,9 +414,111 @@ a {
   margin-bottom: 2rem;
 }
 
-.hero-actions {
+/* Staggered Fade-in Animation for Hero Elements */
+.fade-in-target {
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+    transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* 휠 인디케이터는 절대 위치 정렬(X축 -50%)을 고려하여 transform 합성 처리 */
+.scroll-indicator.fade-in-target {
+  opacity: 0;
+  transform: translate3d(-50%, 15px, 0);
+  transition: opacity 1s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+    transform 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* 활성화 상태 */
+.fade-in-target.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.scroll-indicator.fade-in-target.visible {
+  opacity: 1;
+  transform: translate3d(-50%, 0, 0);
+}
+
+/* Staggered Delay (순차적인 페이드인 등장) */
+.hero-badge.fade-in-target {
+  transition-delay: 0.15s;
+}
+
+.hero-subtitle.fade-in-target {
+  transition-delay: 0.45s;
+}
+
+.scroll-indicator.fade-in-target {
+  transition-delay: 0.9s;
+  /* 타이틀 완독 후 마지막에 은은하게 출현 */
+}
+
+/* Scroll Down Indicator */
+.scroll-indicator {
+  position: absolute;
+  bottom: 2.5rem;
+  left: 50%;
+  transform: translate3d(-50%, 0, 0);
+  /* 정밀 정렬 */
   display: flex;
-  gap: 1rem;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  z-index: 10;
+}
+
+.scroll-mouse {
+  width: 22px;
+  height: 36px;
+  border: 2px solid var(--text-secondary);
+  border-radius: 12px;
+  position: relative;
+  display: block;
+  opacity: 0.8;
+  transition: var(--transition);
+}
+
+.scroll-indicator:hover .scroll-mouse {
+  opacity: 1;
+  border-color: var(--text-primary);
+}
+
+.scroll-wheel {
+  width: 2px;
+  height: 6px;
+  background-color: var(--text-secondary);
+  border-radius: 1px;
+  position: absolute;
+  top: 6px;
+  left: 50%;
+  transform: translateX(-50%);
+  animation: scroll-wheel-anim 1.6s infinite ease-in-out;
+}
+
+.scroll-indicator:hover .scroll-wheel {
+  background-color: var(--text-primary);
+}
+
+@keyframes scroll-wheel-anim {
+  0% {
+    top: 6px;
+    opacity: 1;
+    height: 6px;
+  }
+
+  50% {
+    top: 14px;
+    opacity: 0.2;
+    height: 4px;
+  }
+
+  100% {
+    top: 6px;
+    opacity: 1;
+    height: 6px;
+  }
 }
 
 /* About Styles */

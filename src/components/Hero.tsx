@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import type { Profile } from '../data/types';
 
 interface HeroProps {
@@ -6,21 +6,153 @@ interface HeroProps {
 }
 
 const Hero: React.FC<HeroProps> = ({ profile }) => {
+  const heroRef = useRef<HTMLElement>(null);
+  const [typedTitle, setTypedTitle] = React.useState('');
+  const [isTypingComplete, setIsTypingComplete] = React.useState(false);
+
+  // 마우스 위치 및 보간 변수 관리 (Ref)
+  const coords = useRef({
+    targetX: 0,
+    targetY: 0,
+    currentX: 0,
+    currentY: 0,
+    rafId: 0
+  });
+
+  // 타이핑 효과 구현
+  useEffect(() => {
+    const fullText = profile.title;
+    let index = 0;
+    let timer: number;
+    setIsTypingComplete(false); // 재시작 시 상태 초기화
+
+    const typeText = () => {
+      if (index <= fullText.length) {
+        setTypedTitle(fullText.slice(0, index));
+        index++;
+        timer = window.setTimeout(typeText, 55); // 한 글자당 55ms 속도
+      } else {
+        setIsTypingComplete(true); // 타이핑 완료 시 커서 숨김 트리거
+      }
+    };
+
+    typeText();
+
+    return () => {
+      window.clearTimeout(timer);
+    };
+  }, [profile.title]);
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      // 뷰포트 중심 기준 좌표 계산 (-0.5 ~ 0.5)
+      coords.current.targetX = (e.clientX / window.innerWidth) - 0.5;
+      coords.current.targetY = (e.clientY / window.innerHeight) - 0.5;
+    };
+
+    // 보간 애니메이션 루프
+    const updateParallax = () => {
+      const c = coords.current;
+      c.currentX += (c.targetX - c.currentX) * 0.08;
+      c.currentY += (c.targetY - c.currentY) * 0.08;
+
+      if (heroRef.current) {
+        heroRef.current.style.setProperty('--mx', c.currentX.toFixed(4));
+        heroRef.current.style.setProperty('--my', c.currentY.toFixed(4));
+      }
+
+      c.rafId = requestAnimationFrame(updateParallax);
+    };
+
+    window.addEventListener('mousemove', handleMouseMove);
+    coords.current.rafId = requestAnimationFrame(updateParallax);
+
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
+      cancelAnimationFrame(coords.current.rafId);
+    };
+  }, []);
+
   return (
-    <section className="hero-section container">
+    <section id="hero" ref={heroRef} className="hero-section container">
       <div className="hero-content">
-        <span className="hero-badge">{profile.englishName}</span>
-        <h1 className="hero-title">{profile.title}</h1>
-        <p className="hero-subtitle">안녕하세요, 백엔드 및 풀스택 개발자 {profile.name}입니다.</p>
-        <div className="hero-actions">
-          <a href="#projects" className="btn btn-primary">
-            프로젝트 리스트 보기
-          </a>
-          <a href="#contact" className="btn">
-            연락하기
-          </a>
+        <span className={`hero-badge fade-in-target ${isTypingComplete ? 'visible' : ''}`}>PORTFOLIO</span>
+        <h1 className="hero-title" aria-label={profile.title}>
+          {typedTitle}
+          {!isTypingComplete && <span className="typing-cursor">|</span>}
+        </h1>
+        <p className={`hero-subtitle fade-in-target ${isTypingComplete ? 'visible' : ''}`}>
+          안녕하세요, 풀스택 개발자 {profile.name}입니다.
+        </p>
+      </div>
+
+      {/* Floating Antigravity Shapes */}
+      {/* Shape 1: Double Ring */}
+      <div className="floating-shape-wrapper shape-1">
+        <div className="floating-shape parallax-deep">
+          <svg width="140" height="140" viewBox="0 0 140 140" fill="none">
+            <circle cx="70" cy="70" r="50" stroke="var(--border)" strokeWidth="1.5" strokeDasharray="4 4" />
+            <circle cx="70" cy="70" r="30" stroke="var(--accent)" strokeWidth="1" strokeOpacity="0.4" />
+          </svg>
         </div>
       </div>
+
+      {/* Shape 2: Glow Sphere */}
+      <div className="floating-shape-wrapper shape-2">
+        <div className="floating-shape parallax-light">
+          <div className="glow-sphere"></div>
+        </div>
+      </div>
+
+      {/* Shape 3: Wireframe Cube */}
+      <div className="floating-shape-wrapper shape-3">
+        <div className="floating-shape parallax-medium">
+          <svg width="100" height="100" viewBox="0 0 100 100" fill="none">
+            <path d="M50 10L90 35V75L50 95L10 75V35L50 10Z" stroke="var(--border)" strokeWidth="1.2" strokeOpacity="0.6" />
+            <path d="M50 10V55M50 55L90 35M50 55L10 35M50 55V95" stroke="var(--border)" strokeWidth="1" strokeOpacity="0.4" />
+            <path d="M10 75L50 55L90 75" stroke="var(--border)" strokeWidth="1" strokeOpacity="0.3" strokeDasharray="2 2" />
+          </svg>
+        </div>
+      </div>
+
+      {/* Shape 4: Dashed Circle */}
+      <div className="floating-shape-wrapper shape-4">
+        <div className="floating-shape parallax-deep">
+          <svg width="80" height="80" viewBox="0 0 80 80" fill="none">
+            <circle cx="40" cy="40" r="30" stroke="var(--border)" strokeWidth="1" strokeDasharray="3 3" strokeOpacity="0.5" />
+          </svg>
+        </div>
+      </div>
+
+      {/* Shape 5: Floating Plus */}
+      <div className="floating-shape-wrapper shape-5">
+        <div className="floating-shape parallax-light">
+          <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+            <path d="M20 5V35M5 20H35" stroke="var(--accent)" strokeWidth="1.2" strokeOpacity="0.4" />
+          </svg>
+        </div>
+      </div>
+
+      {/* Shape 6: Small Triangle */}
+      <div className="floating-shape-wrapper shape-6">
+        <div className="floating-shape parallax-medium">
+          <svg width="70" height="70" viewBox="0 0 70 70" fill="none">
+            <polygon points="35,10 60,55 10,55" stroke="var(--border)" strokeWidth="1.2" strokeOpacity="0.5" />
+            <circle cx="35" cy="40" r="8" stroke="var(--accent)" strokeWidth="1" strokeOpacity="0.3" />
+          </svg>
+        </div>
+      </div>
+
+      {/* Scroll Down Indicator */}
+      <a
+        href="#about"
+        className={`scroll-indicator fade-in-target ${isTypingComplete ? 'visible' : ''}`}
+        aria-label="Scroll Down"
+      >
+        <span className="scroll-mouse">
+          <span className="scroll-wheel"></span>
+        </span>
+      </a>
     </section>
   );
 };
