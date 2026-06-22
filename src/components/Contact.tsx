@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import type { Profile } from '../data/types';
-import githubLogo from '../assets/github_logo.svg';
-import gmailLogo from '../assets/gmail_iogo.png';
-import tistoryLogo from '../assets/tistory_logo.svg';
+import githubLogo from '../assets/github-logo.svg';
+import gmailLogo from '../assets/gmail-iogo.png';
+import tistoryLogo from '../assets/tistory-logo.svg';
 
 interface ContactProps {
   profile: Profile;

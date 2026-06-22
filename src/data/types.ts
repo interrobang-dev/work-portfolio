@@ -10,8 +10,9 @@ export interface Profile {
 
 export interface SkillItem {
   name: string;
-  level: "Expert" | "Advanced" | "Intermediate";
+  level: "Production (3Y+)" | "Production" | "Personal";
   description?: string;
+  logos?: string[];
 }
 
 export interface SkillCategory {

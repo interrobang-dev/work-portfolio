@@ -1,7 +1,25 @@
 import type { Profile, SkillCategory, Project, Experience, InterviewQuestion, Certificate } from './types';
-import engsoftLogo from '../assets/engsoft_logo.png';
-import spartaLogo from '../assets/sparta_logo.png';
-import kuLogo from '../assets/ku_logo.png';
+import engsoftLogo from '../assets/engsoft-logo.png';
+import spartaLogo from '../assets/sparta-logo.png';
+import kuLogo from '../assets/ku-logo.png';
+
+// Technology stack logos
+import javaLogo from '../assets/java-logo.svg';
+import springBootLogo from '../assets/spring-boot-logo.svg';
+import pgsqlLogo from '../assets/pgsql-logo.svg';
+import mssqlLogo from '../assets/mssql-logo.svg';
+import mongodbLogo from '../assets/mongodb-logo.svg';
+import reactLogo from '../assets/react-logo.svg';
+import typescriptLogo from '../assets/typescript-logo.svg';
+import javascriptLogo from '../assets/javascript-logo.svg';
+import jqueryLogo from '../assets/jquery-logo.svg';
+import dockerLogo from '../assets/docker-logo.svg';
+import awsLogo from '../assets/aws-ec2-logo.svg';
+import gitLogo from '../assets/git-logo.svg';
+import githubActionsLogo from '../assets/github-actions-logo.png';
+import claudeLogo from '../assets/claude-logo.svg';
+import antigravityLogo from '../assets/antigravity-logo.svg';
+import codexLogo from '../assets/codex-logo.svg';
 
 export const profileData: Profile = {
   name: "천준기",
@@ -19,18 +37,39 @@ export const skillsData: SkillCategory[] = [
     items: [
       {
         name: "Spring Boot / Java",
-        level: "Expert",
-        description: "MVC 아키텍처 기반의 웹 API 설계와 비즈니스 로직 구현 숙련."
+        level: "Production (3Y+)",
+        description: "MVC 아키텍처 기반의 웹 API 설계와 비즈니스 로직 구현 숙련.",
+        logos: [springBootLogo, javaLogo]
       },
       {
         name: "Spring Data JPA",
-        level: "Advanced",
-        description: "영속성 컨텍스트 이해, N+1 쿼리 최적화 및 동적 쿼리 작성 경험 다수."
+        level: "Production",
+        description: "영속성 컨텍스트 이해, N+1 쿼리 최적화 및 동적 쿼리 작성 경험 다수.",
+        logos: [springBootLogo]
       },
       {
-        name: "PostgreSQL / MSSQL / MongoDB",
-        level: "Advanced",
-        description: "인덱싱 설계를 통한 쿼리 실행 계획 분석 및 튜닝 역량 보유."
+        name: "MSSQL",
+        level: "Production (3Y+)",
+        description: "실무 대시보드 및 통계 쿼리 최적화를 위한 인덱싱 설계 및 쿼리 튜닝 숙련.",
+        logos: [mssqlLogo]
+      },
+      {
+        name: "PostgreSQL",
+        level: "Production",
+        description: "기존 레거시 Oracle 환경의 엔티티 구조를 분석하여 PostgreSQL 스키마 설계 및 대규모 마이그레이션을 안정적으로 수행.",
+        logos: [pgsqlLogo]
+      },
+      {
+        name: "MongoDB",
+        level: "Production",
+        description: "대용량 비정형 로그 데이터 및 IoT 기반 실시간 센서 적재 처리를 위한 분산 적재 스키마 설계 및 운영.",
+        logos: [mongodbLogo]
+      },
+      {
+        name: "Supabase",
+        level: "Personal",
+        description: "PostgreSQL 기반 BaaS 솔루션으로 인증(Auth), 실시간 DB 및 Storage를 연동한 서버리스 프로토타이핑 구현.",
+        logos: []
       }
     ]
   },
@@ -38,14 +77,16 @@ export const skillsData: SkillCategory[] = [
     category: "Frontend",
     items: [
       {
-        name: "React / TypeScript",
-        level: "Intermediate",
-        description: "상태 관리 패러다임 및 훅(Hooks)을 활용한 재사용성 높은 컴포넌트 설계 가능."
+        name: "JavaScript / jQuery",
+        level: "Production (3Y+)",
+        description: "실무 레거시 유지보수를 위한 DOM 제어 및 비동기 AJAX 통신 원숙.",
+        logos: [javascriptLogo, jqueryLogo]
       },
       {
-        name: "JavaScript / jQuery",
-        level: "Advanced",
-        description: "실무 레거시 유지보수를 위한 DOM 제어 및 비동기 AJAX 통신 원숙."
+        name: "React / TypeScript",
+        level: "Personal",
+        description: "상태 관리 패러다임 및 훅(Hooks)을 활용한 재사용성 높은 컴포넌트 설계 가능.",
+        logos: [reactLogo, typescriptLogo]
       }
     ]
   },
@@ -54,13 +95,27 @@ export const skillsData: SkillCategory[] = [
     items: [
       {
         name: "Docker / Docker Compose",
-        level: "Intermediate",
-        description: "컨테이너 가상화를 통한 로컬 다중 서버 환경 구성 및 빌드 일원화."
+        level: "Production",
+        description: "컨테이너 가상화를 통한 로컬 다중 서버 환경 구성 및 빌드 일원화.",
+        logos: [dockerLogo]
       },
       {
-        name: "AWS (EC2, RDS, Route53)",
-        level: "Intermediate",
-        description: "가상 서버 인스턴스 구축, 보안 그룹(SG) 구성 및 도메인 바인딩 자동화."
+        name: "AWS (EC2)",
+        level: "Production",
+        description: "Ubuntu 기반 가상 인프라 인스턴스 프로비저닝 및 보안 그룹(SG) 설정을 통한 네트워크 접근 제어와 애플리케이션 무중단 가동 환경 구축.",
+        logos: [awsLogo]
+      },
+      {
+        name: "AWS (RDS, Route53)",
+        level: "Personal",
+        description: "RDS 가상 데이터베이스 인프라 셋업 및 Route53 도메인 라우팅, HTTPS SSL 보안 인증서 적용 자동화 구현.",
+        logos: []
+      },
+      {
+        name: "Nginx",
+        level: "Production",
+        description: "리버스 프록시(Reverse Proxy) 설정을 통한 내부 WAS 포트 추상화, SSL/TLS 보안 인증서 적용 및 웹 서버 정적 자원 호스팅 최적화.",
+        logos: []
       }
     ]
   },
@@ -69,8 +124,9 @@ export const skillsData: SkillCategory[] = [
     items: [
       {
         name: "Git / GitHub Actions",
-        level: "Advanced",
-        description: "협업을 위한 브랜치 룰 수립 및 CI/CD 파이프라인 자동 빌드 설정 경험."
+        level: "Production",
+        description: "협업을 위한 브랜치 룰 수립 및 CI/CD 파이프라인 자동 빌드 설정 경험.",
+        logos: [gitLogo, githubActionsLogo]
       }
     ]
   },
@@ -79,8 +135,9 @@ export const skillsData: SkillCategory[] = [
     items: [
       {
         name: "AI Co-programming (Cursor / Claude CLI / Antigravity)",
-        level: "Advanced",
-        description: "Cursor, Claude CLI, Antigravity 등의 AI 도구 및 에이전트를 활용하여 보일러플레이트 작성과 레거시 리팩토링 과정을 가속화하고, 아키텍처 초안 교차 검증 도구로 활용합니다."
+        level: "Production",
+        description: "Cursor, Claude CLI, Antigravity 등의 AI 도구 및 에이전트를 활용하여 보일러플레이트 작성과 레거시 리팩토링 과정을 가속화하고, 아키텍처 초안 교차 검증 도구로 활용합니다.",
+        logos: [antigravityLogo, claudeLogo, codexLogo]
       }
     ]
   }
@@ -91,7 +148,7 @@ export const projectsData: Project[] = [
     id: "ocms",
     title: "OCMS: 해상 공사관리 시스템",
     type: "work",
-    period: "2024.03 - 현재",
+    period: "2024.01 - 현재",
     role: "백엔드 메인 개발자 / 개발 리드 (기여도 80%)",
     summary: "해상 공사 환경에 특화된 B2B 솔루션으로, 기획 단계부터 직접 참여하여 아키텍처 설계, 기술 스택 현대화, 배포 파이프라인 구축을 주도하고 있습니다.",
     techStack: ["Spring Boot", "Spring Data JPA", "PostgreSQL", "MongoDB", "Docker", "AWS (EC2 - Ubuntu)"],
@@ -112,7 +169,7 @@ export const projectsData: Project[] = [
     id: "s-vord",
     title: "S-VORD: 스마트 공사 관리 대시보드",
     type: "work",
-    period: "2023.02 - 2024.02",
+    period: "2023.02 - 2024.01",
     role: "백엔드 및 프론트엔드 유지보수 개발자 (기여도 50%)",
     summary: "다양한 토목 공사 현장의 관리를 돕는 스마트 대시보드로, 레거시 시스템 리팩토링 및 현장별 커스텀 요구사항 대응, 성능 개선을 전담하였습니다.",
     techStack: ["Spring Boot", "MSSQL", "jQuery", "JavaScript", "HTML/CSS"],
@@ -121,6 +178,21 @@ export const projectsData: Project[] = [
       "레거시 스파게티형 jQuery 코드를 기능 단위 모듈러 구조로 점진적 리팩토링하여 유지보수 용이성 확보.",
       "현장별 데이터 요구사항에 맞춘 시각화 차트 대시보드 설계 및 데이터 바인딩 로직 최적화."
     ]
+  },
+  {
+    id: "portfolio-website",
+    title: "개발자 포트폴리오 웹사이트 (본 웹사이트)",
+    type: "personal",
+    period: "2026.06",
+    role: "1인 개발 (기여도 100%)",
+    summary: "개인 브랜딩과 핵심 엔지니어링 역량 어필을 위해 React와 TypeScript 기반으로 개발된 반응형 단일 페이지 포트폴리오 웹사이트입니다.",
+    techStack: ["React", "TypeScript", "Vite", "Vanilla CSS"],
+    highlights: [
+      "Vite 번들 최적화를 통해 빌드 타임 및 정적 로딩 속도 100ms 이내로 단축.",
+      "CSS Variable을 활용한 전역 테마 관리 구조 설계 및 Flex/Grid 기반의 완벽한 모바일 반응형 레이아웃 구현.",
+      "실무 숙련도를 담백하고 신뢰성 있게 기술하기 위해 nY+ 기반의 기술 명세 컴포넌트(Skills) 및 아키텍처 트러블슈팅 아코디언 설계."
+    ],
+    githubUrl: "https://github.com/interrobang-dev/work-portfolio"
   }
 ];
 
