@@ -15,7 +15,7 @@ export interface SkillItem {
 }
 
 export interface SkillCategory {
-  category: "Backend" | "Frontend" | "DevOps" | "Methodology & Tools";
+  category: "Backend" | "Frontend" | "DevOps" | "Methodology & Tools" | "AI & Productivity";
   items: SkillItem[];
 }
 

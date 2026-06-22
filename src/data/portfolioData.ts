@@ -73,59 +73,54 @@ export const skillsData: SkillCategory[] = [
         description: "협업을 위한 브랜치 룰 수립 및 CI/CD 파이프라인 자동 빌드 설정 경험."
       }
     ]
+  },
+  {
+    category: "AI & Productivity",
+    items: [
+      {
+        name: "AI Co-programming (Cursor / Claude CLI / Antigravity)",
+        level: "Advanced",
+        description: "Cursor, Claude CLI, Antigravity 등의 AI 도구 및 에이전트를 활용하여 보일러플레이트 작성과 레거시 리팩토링 과정을 가속화하고, 아키텍처 초안 교차 검증 도구로 활용합니다."
+      }
+    ]
   }
 ];
 
 export const projectsData: Project[] = [
   {
-    id: "ocms-refactoring",
-    title: "사내 통합 운영 관리 시스템 (OCMS) 성능 개선 및 유지보수",
+    id: "ocms",
+    title: "OCMS: 해상 공사관리 시스템",
     type: "work",
-    period: "2023.03 - 현재",
-    role: "백엔드 메인 개발자 (기여도 80%)",
-    summary: "Spring Boot와 jQuery 기반의 운영 관리 도구로, DB 병목과 레거시 비효율성 요소를 분석하여 전체 시스템 처리량을 획성적으로 증대시켰습니다.",
-    techStack: ["Spring Boot", "Spring Data JPA", "Oracle DB", "jQuery", "Thymeleaf"],
+    period: "2024.03 - 현재",
+    role: "백엔드 메인 개발자 / 개발 리드 (기여도 80%)",
+    summary: "해상 공사 환경에 특화된 B2B 솔루션으로, 기획 단계부터 직접 참여하여 아키텍처 설계, 기술 스택 현대화, 배포 파이프라인 구축을 주도하고 있습니다.",
+    techStack: ["Spring Boot", "Spring Data JPA", "PostgreSQL", "MongoDB", "Docker", "AWS (EC2 - Ubuntu)"],
     highlights: [
-      "JPA N+1 쿼리 버그를 포착하여 Batch Size 조정 및 Join Fetch로 튜닝하여 로딩 지연 개선.",
-      "실무 통계 대시보드 내 인덱스 부재 쿼리를 분석하고 결합 인덱스 설계를 통해 조회 속도 향상.",
-      "스파게티형 jQuery 코드를 기능 단위 모듈러 함수 구조로 점진적 리팩토링 수행."
+      "전남해상풍력 1단지(완료), 영광낙월 해상풍력단지(진행중), 신한우이 해상풍력단지(진행중) 3개 해상 풍력단지 건설 현장의 커스텀 솔루션 개발 및 유지보수 총괄.",
+      "JPA 도입 및 DB 마이그레이션: 기존 레거시 환경에서 PostgreSQL 마이그레이션을 주도하고, Spring Data JPA를 전면 도입하여 생산성 향상.",
+      "데이터 저장소 이원화: 대용량 비정형 로그 및 실시간 센서/이벤트 데이터 적재를 위해 MongoDB를 도입하여 데이터 성격에 최적화된 설계 수립.",
+      "인프라 현대화 및 비용 절감: 기존 Windows OS 기반 AWS 환경을 Ubuntu로 전환하여 서버 운영 라이선스 비용을 절감하고, Docker 기반 배포를 도입하여 로컬-상용 환경 정합성 확보."
     ],
     troubleshooting: {
-      problem: "사내 대시보드 통계 조회 및 엑셀 다운로드 요청 시 최대 7.2초 수준의 API 응답 지연 현상 발생.",
-      cause: "연관 엔티티 FetchType.EAGER 설정 및 무분별한 루프 내 추가 SQL 발행(N+1 조회 문제)으로 인한 DB 커넥션 풀 고갈.",
-      solution: "연관 관계를 FetchType.LAZY로 일괄 전환하고, 통계성 복잡 쿼리는 QueryDSL 동적 쿼리와 Fetch Join을 사용하여 단일 쿼리로 병합 조회하도록 로직 재작성.",
-      result: "해당 API 평균 응답 지연을 7.2초에서 0.3초로 단축(약 95% 개선)하였고, 피크타임 DB 서버 CPU 부하율을 40% 이상 안정화."
+      problem: "시스템 대시보드 통계 조회 및 실시간 공사 이력 다운로드 시 최대 7.2초 수준의 API 응답 지연 현상 발생.",
+      cause: "JPA 도입 초기 연관 엔티티 FetchType.EAGER 설정 남용 및 루프 내부 추가 SQL 발행(N+1 조회 문제)으로 인한 DB 커넥션 풀 고갈.",
+      solution: "연관 관계를 FetchType.LAZY로 전환하고, 통계성 복잡 쿼리는 QueryDSL 동적 쿼리와 Fetch Join을 사용하여 단일 쿼리로 병합 조회하도록 최적화.",
+      result: "해당 API 평균 응답 시간을 7.2초에서 0.3초로 대폭 단축(약 95% 개선)하고 DB CPU 부하를 대폭 안정화."
     }
   },
   {
-    id: "taskflow",
-    title: "TaskFlow: 실시간 협업 애자일 칸반 보드",
-    type: "personal",
-    period: "2024.11 - 2024.12",
-    role: "1인 풀스택 개발 (기여도 100%)",
-    summary: "팀원 간 실시간 작업 상태 변경과 이슈 추적을 돕는 모던 풀스택 협업 플랫폼입니다.",
-    techStack: ["React", "TypeScript", "NestJS", "Socket.io", "MongoDB", "Docker", "AWS"],
+    id: "s-vord",
+    title: "S-VORD: 스마트 공사 관리 대시보드",
+    type: "work",
+    period: "2023.02 - 2024.02",
+    role: "백엔드 및 프론트엔드 유지보수 개발자 (기여도 50%)",
+    summary: "다양한 토목 공사 현장의 관리를 돕는 스마트 대시보드로, 레거시 시스템 리팩토링 및 현장별 커스텀 요구사항 대응, 성능 개선을 전담하였습니다.",
+    techStack: ["Spring Boot", "MSSQL", "jQuery", "JavaScript", "HTML/CSS"],
     highlights: [
-      "Socket.io를 이용한 실시간 변경 내용 브로드캐스트 구현으로 협업 동기성 보장.",
-      "React-Beautiful-Dnd 라이브러리를 적용하여 드래그 앤 드롭을 통한 카드 상태 이동 마이크로 UX 설계.",
-      "Docker Compose를 사용하여 백엔드, 프론트엔드, DB 환경을 로컬 컨테이너로 추상화하여 배포 안정화."
-    ],
-    githubUrl: "https://github.com/example-github/taskflow"
-  },
-  {
-    id: "logtrace",
-    title: "LogTrace: 실시간 경량 로그 모니터링 대시보드",
-    type: "personal",
-    period: "2025.02 - 2025.03",
-    role: "1인 백엔드 및 프론트엔드 개발 (기여도 100%)",
-    summary: "분산 노드 환경에서 발생하는 시스템 로그 데이터를 Redis Pub/Sub 구조로 수집하여 실시간 가시화 및 Alerting을 제공하는 유틸리티 대시보드입니다.",
-    techStack: ["React", "TypeScript", "FastAPI", "Redis", "SQLite", "Discord Webhook"],
-    highlights: [
-      "Redis Pub/Sub을 활용하여 초당 500개 이상의 유입 로그 메시지를 백그라운드 스레드에서 유실 없이 소비.",
-      "특정 키워드(ERROR, FATAL) 출현 빈도가 임계치를 초과할 시 Discord Webhook과 즉각 연동하여 온콜(On-Call) 알림 발송 시스템 완비.",
-      "미니멀한 모노톤 UI 디자인으로 차트 시각화 오버헤드를 낮추어 반응성 향상."
-    ],
-    githubUrl: "https://github.com/example-github/logtrace"
+      "김포-파주 고속국도, 인천 신항, 광양항 준설토투기장, 제주 한림 해상풍력단지 등 4개 주요 현장의 커스텀 기능 개발 및 유지보수 전담.",
+      "레거시 스파게티형 jQuery 코드를 기능 단위 모듈러 구조로 점진적 리팩토링하여 유지보수 용이성 확보.",
+      "현장별 데이터 요구사항에 맞춘 시각화 차트 대시보드 설계 및 데이터 바인딩 로직 최적화."
+    ]
   }
 ];
 
@@ -135,9 +130,9 @@ export const experienceData: Experience[] = [
     role: "스마트건설팀 | 웹 개발자 / 대리",
     period: "2023.02 - 현재",
     description: [
-      "B2B 맞춤형 솔루션인 해상 공사 관리 시스템(OCMS)의 기능 개발 및 유지보수 총괄",
-      "오래된 레거시 코드의 안정화를 위한 리팩토링 및 시스템 성능 최적화 작업 주도",
-      "기존 고객사들의 높은 만족도를 바탕으로 신규 업체 계약 수주 연속 달성에 크게 기여"
+      "B2B 해상 공사 관리 솔루션(OCMS) 및 스마트 대시보드(S-VORD) 개발 및 유지보수 총괄",
+      "기술 스택 현대화(Spring JPA, PostgreSQL, MongoDB, Docker 도입) 및 AWS 인프라 최적화 주도",
+      "레거시 코드 리팩토링 및 쿼리 튜닝을 통해 대규모 데이터 조회 성능 95% 향상 및 시스템 안정성 확보"
     ],
     type: "career",
     logo: engsoftLogo
