@@ -149,9 +149,16 @@ const Hero: React.FC<HeroProps> = ({ profile }) => {
         className={`scroll-indicator fade-in-target ${isTypingComplete ? 'visible' : ''}`}
         aria-label="Scroll Down"
       >
-        <span className="scroll-mouse">
+        <span className="scroll-mouse pc-only">
           <span className="scroll-wheel"></span>
         </span>
+        <div className="scroll-swipe mobile-only">
+          <div className="swipe-gesture-wrapper">
+            <svg className="swipe-hand" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" d="m4.5 5.25 7.5 7.5 7.5-7.5m-15 6 7.5 7.5 7.5-7.5" />
+            </svg>
+          </div>
+        </div>
       </a>
     </section>
   );

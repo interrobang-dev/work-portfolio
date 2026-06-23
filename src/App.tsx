@@ -9,10 +9,10 @@ import Contact from './components/Contact';
 import { profileData, skillsData, projectsData, experienceData, interviewQuestions, certificatesData } from './data/portfolioData';
 
 function App() {
-  const [activeSection, setActiveSection] = useState('about');
+  const [activeSection, setActiveSection] = useState('hero');
 
   useEffect(() => {
-    const sections = ['about', 'skills', 'projects', 'experience', 'contact'];
+    const sections = ['hero', 'about', 'skills', 'projects', 'experience', 'contact'];
     const observerOptions = {
       root: null,
       rootMargin: '-20% 0px -60% 0px', // 화면 중간 영역에 걸칠 때 변경되도록 마진 설정

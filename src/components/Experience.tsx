@@ -29,7 +29,12 @@ const Experience: React.FC<ExperienceProps> = ({ experienceList, certificates })
                   </div>
                   <div className="timeline-content">
                     <div className="timeline-header">
-                      <span className="experience-period">{exp.period}</span>
+                      <div className="experience-period-row">
+                        <span className="experience-period">{exp.period}</span>
+                        <span className={`badge-tag mobile-badge ${exp.type}`}>
+                          {exp.type === 'career' ? 'Career' : 'Education'}
+                        </span>
+                      </div>
                       <div className="experience-company-row">
                         {exp.logo && (
                           <div className="experience-logo-wrapper">
