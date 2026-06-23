@@ -11,6 +11,7 @@
   --border-hover: #0f172a;
   --accent: #2563eb;
   --accent-light: rgba(37, 99, 235, 0.05);
+  --header-bg: rgba(252, 252, 252, 0.85);
 
   /* Fonts */
   --font-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -22,6 +23,19 @@
 
   /* Transition */
   --transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+:root[data-theme='dark'] {
+  --bg: #0f172a;           /* Slate-900 */
+  --card-bg: #1e293b;      /* Slate-800 */
+  --text-primary: #f8fafc; /* Slate-50 */
+  --text-secondary: #cbd5e1; /* Slate-300 */
+  --text-muted: #64748b;    /* Slate-500 */
+  --border: #334155;        /* Slate-700 */
+  --border-hover: #f8fafc;  /* Slate-50 */
+  --accent: #3b82f6;        /* Blue-500 */
+  --accent-light: rgba(59, 130, 246, 0.1);
+  --header-bg: rgba(15, 23, 42, 0.85);
 }
 
 /* Reset */
@@ -167,7 +181,7 @@ a {
   position: sticky;
   top: 0;
   z-index: 100;
-  background-color: rgba(252, 252, 252, 0.85);
+  background-color: var(--header-bg);
   backdrop-filter: blur(8px);
   border-bottom: 1px solid var(--border);
   height: 4rem;
@@ -187,6 +201,41 @@ a {
   font-weight: 700;
   font-size: 1.25rem;
   color: var(--text-primary);
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.theme-toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  width: 2.25rem;
+  height: 2.25rem;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: var(--transition);
+  padding: 0;
+}
+
+.theme-toggle-btn:hover {
+  border-color: var(--border-hover);
+  color: var(--text-primary);
+  transform: scale(1.05);
+}
+
+.theme-toggle-btn svg {
+  transition: transform 0.3s ease;
+}
+
+.theme-toggle-btn:active svg {
+  transform: rotate(45deg) scale(0.9);
 }
 
 .nav-menu {
@@ -1454,4 +1503,24 @@ a {
 .copyright {
   font-size: 0.75rem;
   color: var(--text-muted);
+}
+
+/* Dark Mode GitHub Card Layout Override */
+:root[data-theme='dark'] .card-github .contact-card-logo {
+  filter: invert(1) brightness(1.5);
+}
+
+:root[data-theme='dark'] .contact-card.card-github:hover {
+  border-color: var(--border-hover);
+  box-shadow: 0 10px 25px rgba(255, 255, 255, 0.02);
+}
+
+:root[data-theme='dark'] .contact-card.card-github:hover .contact-value,
+:root[data-theme='dark'] .contact-card.card-github:hover .contact-card-arrow {
+  color: var(--text-primary);
+}
+
+:root[data-theme='dark'] .contact-card.card-github:hover .contact-logo-wrapper {
+  border-color: var(--border-hover);
+  background-color: rgba(255, 255, 255, 0.02);
 }
