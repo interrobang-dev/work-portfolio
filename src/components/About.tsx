@@ -15,8 +15,8 @@ const About: React.FC<AboutProps> = ({ profile, interviewQuestions }) => {
   return (
     <section id="about" className="section border-top">
       <div className="container">
-        <h2>About Me</h2>
-        
+        <h2>About</h2>
+
         {/* 1. Nickname Intro & Simple Keywords Section */}
         <div className="about-intro-section">
           <div className="about-nickname-intro">
@@ -24,12 +24,12 @@ const About: React.FC<AboutProps> = ({ profile, interviewQuestions }) => {
             <h3 className="nickname-title">{profile.nickname}</h3>
             <p className="nickname-intro-quote">"{profile.nicknameIntro}"</p>
             <p className="nickname-story-text">{profile.nicknameDetail}</p>
-            
+
             <div className="nickname-blog-link-wrapper">
-              <a 
-                href="https://interrobang.tistory.com/25" 
-                target="_blank" 
-                rel="noopener noreferrer" 
+              <a
+                href="https://interrobang.tistory.com/25"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="nickname-blog-link"
               >
                 블로그에서 관련 글 읽기 ➔
@@ -42,8 +42,8 @@ const About: React.FC<AboutProps> = ({ profile, interviewQuestions }) => {
             <span className="keywords-label">Core Keywords :</span>
             <div className="keywords-badges-list">
               {profile.keywords.map((kw) => (
-                <span 
-                  key={kw} 
+                <span
+                  key={kw}
                   className="keyword-badge-tag"
                 >
                   ✦ {kw}
@@ -56,7 +56,7 @@ const About: React.FC<AboutProps> = ({ profile, interviewQuestions }) => {
         {/* 2. Self Interview Section - Magazine Split Layout */}
         <div className="interview-section">
           <h3 className="about-subtitle">Self Interview</h3>
-          
+
           <div className="interview-magazine-wrapper">
             {/* Left Question List */}
             <div className="magazine-questions-column">

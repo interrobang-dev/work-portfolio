@@ -23,8 +23,8 @@ import codexLogo from '../assets/logos/codex-logo.svg';
 
 export const profileData: Profile = {
   name: "천준기",
-  englishName: "Chun Joon Ki",
-  title: "탄탄한 기본기로 성능을 개선하고, 모던 기술로 가치를 연결하는 풀스택 엔지니어",
+  englishName: "Joonki Chun",
+  title: "Hello, my name is",
   shortBio: "레거시 시스템의 복잡한 쿼리와 비효율적인 비즈니스 로직을 분석하여 성능을 수배 이상 향상시키는 일에 보람을 느낍니다. 이에 안주하지 않고 React와 TypeScript, Docker 등 최신 기술 스택을 직접 탐구하며 설계 역량을 키워나가는 자기주도적 엔지니어입니다.",
   email: "joonki.dev@gmail.com",
   github: "https://github.com/interrobang-dev",

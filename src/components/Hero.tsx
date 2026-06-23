@@ -7,7 +7,8 @@ interface HeroProps {
 
 const Hero: React.FC<HeroProps> = ({ profile }) => {
   const heroRef = useRef<HTMLElement>(null);
-  const [typedTitle, setTypedTitle] = React.useState('');
+  const [typedLine1, setTypedLine1] = React.useState('');
+  const [typedLine2, setTypedLine2] = React.useState('');
   const [isTypingComplete, setIsTypingComplete] = React.useState(false);
 
   // 마우스 위치 및 보간 변수 관리 (Ref)
@@ -19,29 +20,44 @@ const Hero: React.FC<HeroProps> = ({ profile }) => {
     rafId: 0
   });
 
-  // 타이핑 효과 구현
+  // 타이핑 효과 구현 (순차 2라인 타이핑)
   useEffect(() => {
-    const fullText = profile.title;
-    let index = 0;
+    const line1Text = profile.title;
+    const line2Text = profile.englishName;
+    let index1 = 0;
+    let index2 = 0;
     let timer: number;
-    setIsTypingComplete(false); // 재시작 시 상태 초기화
 
-    const typeText = () => {
-      if (index <= fullText.length) {
-        setTypedTitle(fullText.slice(0, index));
-        index++;
-        timer = window.setTimeout(typeText, 55); // 한 글자당 55ms 속도
+    setTypedLine1('');
+    setTypedLine2('');
+    setIsTypingComplete(false);
+
+    const typeLine2 = () => {
+      if (index2 <= line2Text.length) {
+        setTypedLine2(line2Text.slice(0, index2));
+        index2++;
+        timer = window.setTimeout(typeLine2, 60);
       } else {
-        setIsTypingComplete(true); // 타이핑 완료 시 커서 숨김 트리거
+        setIsTypingComplete(true);
       }
     };
 
-    typeText();
+    const typeLine1 = () => {
+      if (index1 <= line1Text.length) {
+        setTypedLine1(line1Text.slice(0, index1));
+        index1++;
+        timer = window.setTimeout(typeLine1, 60);
+      } else {
+        typeLine2();
+      }
+    };
+
+    typeLine1();
 
     return () => {
       window.clearTimeout(timer);
     };
-  }, [profile.title]);
+  }, [profile.englishName]);
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
@@ -76,10 +92,17 @@ const Hero: React.FC<HeroProps> = ({ profile }) => {
   return (
     <section id="hero" ref={heroRef} className="hero-section container">
       <div className="hero-content">
-        <span className={`hero-badge fade-in-target ${isTypingComplete ? 'visible' : ''}`}>PORTFOLIO</span>
+        <span className={`hero-badge fade-in-target ${isTypingComplete ? 'visible' : ''}`}>Introduction</span>
         <h1 className="hero-title" aria-label={profile.title}>
-          {typedTitle}
-          {!isTypingComplete && <span className="typing-cursor">|</span>}
+          <span className="hero-title-first">
+            {typedLine1}
+            {!typedLine2 && !isTypingComplete && <span className="typing-cursor">|</span>}
+          </span>
+          <br />
+          <span className="hero-title-second highlight-accent">
+            {typedLine2}
+            {typedLine2 && !isTypingComplete && <span className="typing-cursor">|</span>}
+          </span>
         </h1>
         <p className={`hero-subtitle fade-in-target ${isTypingComplete ? 'visible' : ''}`}>
           안녕하세요, 풀스택 개발자 {profile.name}입니다.
