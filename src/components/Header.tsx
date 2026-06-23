@@ -67,7 +67,7 @@ const Header: React.FC<HeaderProps> = ({ activeSection }) => {
               window.scrollTo({ top: 0, behavior: 'smooth' });
             }}
           >
-            CJK.Portfolio
+            JKC.Portfolio
           </a>
           <div className="header-right">
             <nav className="nav-menu">
@@ -81,7 +81,7 @@ const Header: React.FC<HeaderProps> = ({ activeSection }) => {
                 </a>
               ))}
             </nav>
-            
+
             <button
               type="button"
               className="theme-toggle-btn"
