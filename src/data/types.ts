@@ -6,6 +6,10 @@ export interface Profile {
   email: string;
   github: string;
   blog?: string;
+  nickname: string;
+  nicknameIntro: string;
+  nicknameDetail: string;
+  keywords: string[];
 }
 
 export interface SkillItem {

@@ -610,17 +610,319 @@ a {
   }
 }
 
-/* About Styles */
-.about-intro {
-  margin-bottom: 3rem;
-  max-width: 900px;
+/* About Intro Layout Styles */
+.about-intro-section {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 2.5rem;
+  margin-bottom: 4rem;
+  transition: var(--transition);
 }
 
-.about-intro .bio-text {
-  font-size: 1.125rem;
-  line-height: 1.8;
+.about-intro-section:hover {
+  border-color: var(--border-hover);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+}
+
+.about-nickname-intro {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.nickname-badge {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  width: fit-content;
+}
+
+.nickname-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.nickname-intro-quote {
+  font-size: 1.25rem;
+  font-weight: 500;
+  line-height: 1.5;
+  color: var(--text-primary);
+  border-left: 2px solid var(--accent);
+  padding-left: 1rem;
+  margin: 0.5rem 0;
+}
+
+.nickname-story-text {
+  font-size: 0.9375rem;
+  line-height: 1.75;
   color: var(--text-secondary);
-  white-space: pre-line;
+  margin: 0;
+}
+
+.nickname-blog-link-wrapper {
+  margin-top: 0.5rem;
+}
+
+.nickname-blog-link {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--accent);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  transition: var(--transition);
+  border-bottom: 1px dashed transparent;
+  padding-bottom: 2px;
+}
+
+.nickname-blog-link:hover {
+  color: var(--text-primary);
+  border-bottom-color: var(--text-primary);
+}
+
+/* Simple Keyword Badges List */
+.about-keywords-simple {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding-top: 1.75rem;
+  border-top: 1px solid var(--border);
+}
+
+@media (min-width: 640px) {
+  .about-keywords-simple {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1.25rem;
+  }
+}
+
+.keywords-label {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+}
+
+.keywords-badges-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.keyword-badge-tag {
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  background-color: var(--bg);
+  border: 1px solid var(--border);
+  padding: 0.375rem 0.875rem;
+  border-radius: 30px;
+  cursor: help;
+  transition: var(--transition);
+}
+
+.keyword-badge-tag:hover {
+  color: var(--text-primary);
+  border-color: var(--border-hover);
+  background-color: var(--card-bg);
+}
+
+/* Interview Section & Magazine Q&A Styles */
+.interview-section {
+  margin-top: 4rem;
+}
+
+.interview-magazine-wrapper {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2.5rem;
+  margin-top: 2rem;
+}
+
+@media (min-width: 768px) {
+  .interview-magazine-wrapper {
+    grid-template-columns: 1fr 2.2fr;
+    gap: 4rem;
+  }
+}
+
+/* Left Column: Questions */
+.magazine-questions-column {
+  display: flex;
+  flex-direction: row;
+  overflow-x: auto;
+  gap: 0.5rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--border);
+  -webkit-overflow-scrolling: touch;
+}
+
+.magazine-questions-column::-webkit-scrollbar {
+  height: 4px;
+}
+
+.magazine-questions-column::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.magazine-questions-column::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 4px;
+}
+
+@media (min-width: 768px) {
+  .magazine-questions-column {
+    flex-direction: column;
+    overflow-x: visible;
+    border-bottom: none;
+    border-right: 1px solid var(--border);
+    padding-bottom: 0;
+    padding-right: 2rem;
+    gap: 1rem;
+  }
+}
+
+.magazine-question-item {
+  background: none;
+  border: none;
+  padding: 0.5rem 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  text-align: left;
+  cursor: pointer;
+  transition: var(--transition);
+  border-radius: var(--radius);
+  flex-shrink: 0;
+}
+
+@media (min-width: 768px) {
+  .magazine-question-item {
+    padding: 0.75rem 1rem;
+    width: 100%;
+    border-left: 2px solid transparent;
+    border-radius: 0;
+  }
+}
+
+.magazine-question-item:hover {
+  background-color: var(--accent-light);
+}
+
+.magazine-question-item.active {
+  background-color: var(--accent-light);
+}
+
+@media (min-width: 768px) {
+  .magazine-question-item.active {
+    border-left-color: var(--accent);
+    background-color: transparent;
+  }
+}
+
+.magazine-question-num {
+  font-family: var(--font-title);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  transition: var(--transition);
+}
+
+.magazine-question-item.active .magazine-question-num {
+  color: var(--accent);
+}
+
+.magazine-question-text {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  transition: var(--transition);
+  white-space: nowrap;
+}
+
+@media (min-width: 768px) {
+  .magazine-question-text {
+    white-space: normal;
+    font-size: 0.9375rem;
+  }
+}
+
+.magazine-question-item.active .magazine-question-text {
+  color: var(--text-primary);
+  font-weight: 700;
+}
+
+/* Right Column: Answers */
+.magazine-answer-column {
+  min-height: 220px;
+  position: relative;
+}
+
+.magazine-answer-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.magazine-answer-category {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.magazine-blockquote {
+  font-family: var(--font-sans);
+  font-size: 1.25rem;
+  font-weight: 600;
+  line-height: 1.5;
+  color: var(--text-primary);
+  border-left: 3px solid var(--accent);
+  padding-left: 1.25rem;
+  margin: 0;
+  font-style: italic;
+}
+
+@media (min-width: 768px) {
+  .magazine-blockquote {
+    font-size: 1.5rem;
+  }
+}
+
+.magazine-desc-text {
+  font-size: 0.9375rem;
+  line-height: 1.7;
+  color: var(--text-secondary);
+}
+
+/* Tab Fade In Animation */
+@keyframes magazine-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in-active {
+  animation: magazine-fade-in 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
 }
 
 /* Bento Grid Layout */

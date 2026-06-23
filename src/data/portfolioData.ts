@@ -1,25 +1,25 @@
 import type { Profile, SkillCategory, Project, Experience, InterviewQuestion, Certificate } from './types';
-import engsoftLogo from '../assets/engsoft-logo.png';
-import spartaLogo from '../assets/sparta-logo.png';
-import kuLogo from '../assets/ku-logo.png';
+import engsoftLogo from '../assets/logos/engsoft-logo.png';
+import spartaLogo from '../assets/logos/sparta-logo.png';
+import kuLogo from '../assets/logos/ku-logo.png';
 
 // Technology stack logos
-import javaLogo from '../assets/java-logo.svg';
-import springBootLogo from '../assets/spring-boot-logo.svg';
-import pgsqlLogo from '../assets/pgsql-logo.svg';
-import mssqlLogo from '../assets/mssql-logo.svg';
-import mongodbLogo from '../assets/mongodb-logo.svg';
-import reactLogo from '../assets/react-logo.svg';
-import typescriptLogo from '../assets/typescript-logo.svg';
-import javascriptLogo from '../assets/javascript-logo.svg';
-import jqueryLogo from '../assets/jquery-logo.svg';
-import dockerLogo from '../assets/docker-logo.svg';
-import awsLogo from '../assets/aws-ec2-logo.svg';
-import gitLogo from '../assets/git-logo.svg';
-import githubActionsLogo from '../assets/github-actions-logo.png';
-import claudeLogo from '../assets/claude-logo.svg';
-import antigravityLogo from '../assets/antigravity-logo.svg';
-import codexLogo from '../assets/codex-logo.svg';
+import javaLogo from '../assets/logos/java-logo.svg';
+import springBootLogo from '../assets/logos/spring-boot-logo.svg';
+import pgsqlLogo from '../assets/logos/pgsql-logo.svg';
+import mssqlLogo from '../assets/logos/mssql-logo.svg';
+import mongodbLogo from '../assets/logos/mongodb-logo.svg';
+import reactLogo from '../assets/logos/react-logo.svg';
+import typescriptLogo from '../assets/logos/typescript-logo.svg';
+import javascriptLogo from '../assets/logos/javascript-logo.svg';
+import jqueryLogo from '../assets/logos/jquery-logo.svg';
+import dockerLogo from '../assets/logos/docker-logo.svg';
+import awsLogo from '../assets/logos/aws-ec2-logo.svg';
+import gitLogo from '../assets/logos/git-logo.svg';
+import githubActionsLogo from '../assets/logos/github-actions-logo.png';
+import claudeLogo from '../assets/logos/claude-logo.svg';
+import antigravityLogo from '../assets/logos/antigravity-logo.svg';
+import codexLogo from '../assets/logos/codex-logo.svg';
 
 export const profileData: Profile = {
   name: "천준기",
@@ -28,7 +28,11 @@ export const profileData: Profile = {
   shortBio: "레거시 시스템의 복잡한 쿼리와 비효율적인 비즈니스 로직을 분석하여 성능을 수배 이상 향상시키는 일에 보람을 느낍니다. 이에 안주하지 않고 React와 TypeScript, Docker 등 최신 기술 스택을 직접 탐구하며 설계 역량을 키워나가는 자기주도적 엔지니어입니다.",
   email: "joonki.dev@gmail.com",
   github: "https://github.com/interrobang-dev",
-  blog: "https://interrobang.tistory.com"
+  blog: "https://interrobang.tistory.com",
+  nickname: "Interrobang",
+  nicknameIntro: "의문을 명쾌한 느낌표로 바꾸는, 집요하게 답을 찾아내는 풀스택 엔지니어",
+  nicknameDetail: "Interrobang은 의문을 나타내는 물음표(?)와 감탄을 나타내는 느낌표(!)가 결합된 문장 기호(‽)입니다. 개발을 마주하며 직면하는 수많은 '왜 그럴까?'라는 물음표를, 집요한 분석과 쿼리 최적화 및 비즈니스 코드 튜닝을 통해 감탄할 만한 성능 향상이라는 '느낌표'로 바꾸는 저의 개발 신조를 표현합니다. 레거시 코드의 기술 부채를 해소하고 비즈니스 가치를 극대화하는 것에 가장 큰 희열을 느낍니다.",
+  keywords: ["책임감", "끈기", "넓은 시야", "배려심"]
 };
 
 export const skillsData: SkillCategory[] = [

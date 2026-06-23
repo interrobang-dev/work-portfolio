@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import type { Profile } from '../data/types';
-import githubLogo from '../assets/github-logo.svg';
-import gmailLogo from '../assets/gmail-iogo.png';
-import tistoryLogo from '../assets/tistory-logo.svg';
+import githubLogo from '../assets/logos/github-logo.svg';
+import gmailLogo from '../assets/logos/gmail-iogo.png';
+import tistoryLogo from '../assets/logos/tistory-logo.svg';
 
 interface ContactProps {
   profile: Profile;
@@ -28,11 +28,11 @@ const Contact: React.FC<ContactProps> = ({ profile }) => {
       <div className="container contact-container">
         <h2>Contact</h2>
         <p className="contact-subtitle">함께 성장할 수 있는 제안이나 궁금한 점이 있으시다면 언제든 연락해 주십시오.</p>
-        
+
         <div className="contact-grid">
           {/* Email (Gmail) Card */}
-          <a 
-            href={`mailto:${profile.email}`} 
+          <a
+            href={`mailto:${profile.email}`}
             className="contact-card card-gmail"
             title="이메일 보내기"
           >
@@ -56,10 +56,10 @@ const Contact: React.FC<ContactProps> = ({ profile }) => {
           </a>
 
           {/* GitHub Card */}
-          <a 
-            href={profile.github} 
-            target="_blank" 
-            rel="noopener noreferrer" 
+          <a
+            href={profile.github}
+            target="_blank"
+            rel="noopener noreferrer"
             className="contact-card card-github"
             title="GitHub 방문하기"
           >
@@ -77,10 +77,10 @@ const Contact: React.FC<ContactProps> = ({ profile }) => {
 
           {/* Tistory Blog Card */}
           {profile.blog && (
-            <a 
-              href={profile.blog} 
-              target="_blank" 
-              rel="noopener noreferrer" 
+            <a
+              href={profile.blog}
+              target="_blank"
+              rel="noopener noreferrer"
               className="contact-card card-tistory"
               title="Blog 방문하기"
             >
