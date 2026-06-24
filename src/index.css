@@ -1883,23 +1883,23 @@ a {
   color: var(--text-muted);
 }
 
-/* Dark Mode GitHub Card Layout Override */
-:root[data-theme='dark'] .card-github .contact-card-logo {
+/* GitHub Card Layout Override for Dark-fixed Contact */
+.contact-section-dark-fixed .card-github .contact-card-logo {
   filter: invert(1) brightness(1.5);
 }
 
-:root[data-theme='dark'] .contact-card.card-github:hover {
-  border-color: var(--border-hover);
+.contact-section-dark-fixed .contact-card.card-github:hover {
+  border-color: #ffffff;
   box-shadow: 0 10px 25px rgba(255, 255, 255, 0.02);
 }
 
-:root[data-theme='dark'] .contact-card.card-github:hover .contact-value,
-:root[data-theme='dark'] .contact-card.card-github:hover .contact-card-arrow {
-  color: var(--text-primary);
+.contact-section-dark-fixed .contact-card.card-github:hover .contact-value,
+.contact-section-dark-fixed .contact-card.card-github:hover .contact-card-arrow {
+  color: #ffffff;
 }
 
-:root[data-theme='dark'] .contact-card.card-github:hover .contact-logo-wrapper {
-  border-color: var(--border-hover);
+.contact-section-dark-fixed .contact-card.card-github:hover .contact-logo-wrapper {
+  border-color: #ffffff;
   background-color: rgba(255, 255, 255, 0.02);
 }
 
@@ -1972,9 +1972,9 @@ a {
     transform: translateY(-2px);
   }
 
-  /* 간섭 방지: 모바일 환경에서 페이지 맨 마지막에 안전 패딩 부여 */
+  /* 간섭 방지: 모바일 환경에서 페이지 맨 마지막에 안전 패딩 부여 (배경 유실 방지를 위해 body 대신 contact 섹션으로 이전) */
   body {
-    padding-bottom: calc(3.75rem + env(safe-area-inset-bottom) + 1rem) !important;
+    padding-bottom: 0 !important;
   }
 }
 
@@ -2042,5 +2042,242 @@ a {
 
   50% {
     opacity: 1;
+  }
+}
+
+/* Contact 전용 변수 (기본 상태: 라이트 모드일 때 강제 딥 블랙) */
+.contact-section-dark-fixed {
+  --contact-bg: #0a0a0a;              /* 극도로 어두운 딥 블랙 */
+  --contact-card-bg: rgba(255, 255, 255, 0.03); /* 아주 연한 반투명 카드 배경 */
+  --contact-card-border: rgba(255, 255, 255, 0.08);
+  --contact-card-border-hover: rgba(255, 255, 255, 0.25);
+  
+  --contact-text-primary: #ffffff;
+  --contact-text-secondary: #a3a3a3; /* 옅은 회색 */
+  --contact-text-muted: #525252;     /* 어두운 회색 */
+  --contact-border-top: rgba(255, 255, 255, 0.05);
+  
+  background-color: var(--contact-bg) !important;
+  color: var(--contact-text-primary) !important;
+  border-top: 1px solid var(--contact-border-top) !important;
+  padding-bottom: 0 !important; /* 거대 텍스트가 바닥에 딱 붙도록 설정 */
+  overflow: hidden;
+}
+
+/* 시스템 테마가 다크 모드일 때: 기존 다크 모드 배경과 융합 */
+:root[data-theme='dark'] .contact-section-dark-fixed {
+  --contact-bg: var(--bg);            /* 다크 모드 기본 배경 (#0f172a) */
+  --contact-card-bg: var(--card-bg);  /* 다크 모드 기본 카드 배경 (#1e293b) */
+  --contact-card-border: var(--border); /* 다크 모드 기본 보더 */
+  --contact-card-border-hover: var(--border-hover);
+  
+  --contact-text-primary: var(--text-primary);
+  --contact-text-secondary: var(--text-secondary);
+  --contact-text-muted: var(--text-muted);
+  --contact-border-top: var(--border); /* 다크 모드 기본 보더 */
+}
+
+.contact-slogan-wrapper {
+  width: 100%;
+  text-align: left;
+  margin-bottom: 4rem;
+}
+
+.contact-slogan {
+  display: flex;
+  flex-direction: column;
+  border-bottom: none !important;
+  padding-bottom: 0 !important;
+  margin-bottom: 0 !important;
+  font-family: var(--font-title);
+  line-height: 1.15;
+}
+
+.contact-slogan .highlight-white {
+  color: var(--contact-text-primary);
+  font-weight: 700;
+  font-size: 3.5rem;
+}
+
+.contact-slogan .highlight-muted {
+  color: var(--contact-text-secondary);
+  font-weight: 400;
+  font-size: 3.5rem;
+}
+
+@media (max-width: 768px) {
+  .contact-slogan .highlight-white {
+    font-size: 2.25rem;
+  }
+
+  .contact-slogan .highlight-muted {
+    font-size: 2.25rem;
+  }
+}
+
+/* 기존 카드 컴포넌트의 다크 고정 스타일 */
+.contact-section-dark-fixed .contact-card {
+  background: var(--contact-card-bg) !important;
+  border-color: var(--contact-card-border) !important;
+}
+
+.contact-section-dark-fixed .contact-card:hover {
+  background: rgba(255, 255, 255, 0.05) !important;
+}
+
+.contact-section-dark-fixed .contact-card .contact-label {
+  color: var(--contact-text-muted) !important;
+}
+
+.contact-section-dark-fixed .contact-card .contact-value {
+  color: var(--contact-text-primary) !important;
+}
+
+.contact-section-dark-fixed .contact-card .contact-card-arrow {
+  color: var(--contact-text-muted) !important;
+}
+
+.contact-section-dark-fixed .contact-card.card-gmail:hover {
+  border-color: #ea4335 !important;
+  box-shadow: 0 10px 25px rgba(234, 67, 53, 0.15) !important;
+}
+
+.contact-section-dark-fixed .contact-card.card-github:hover {
+  border-color: #ffffff !important;
+  box-shadow: 0 10px 25px rgba(255, 255, 255, 0.15) !important;
+}
+
+.contact-section-dark-fixed .contact-card.card-tistory:hover {
+  border-color: #fc4c4e !important;
+  box-shadow: 0 10px 25px rgba(252, 76, 78, 0.15) !important;
+}
+
+.contact-section-dark-fixed .contact-logo-wrapper {
+  background-color: rgba(255, 255, 255, 0.02) !important;
+  border-color: var(--contact-card-border) !important;
+}
+
+.contact-section-dark-fixed .btn-card-copy {
+  background-color: rgba(255, 255, 255, 0.05) !important;
+  border-color: var(--contact-card-border) !important;
+  color: var(--contact-text-secondary) !important;
+}
+
+.contact-section-dark-fixed .btn-card-copy:hover {
+  border-color: var(--contact-card-border-hover) !important;
+  color: var(--contact-text-primary) !important;
+}
+
+.contact-section-dark-fixed .btn-card-copy.copied {
+  background: #ea4335 !important;
+  color: #fff !important;
+  border-color: #ea4335 !important;
+}
+
+/* 구분선 및 메타 */
+.contact-footer-divider {
+  width: 100%;
+  height: 1px;
+  background-color: var(--contact-card-border);
+  margin: 3rem 0 2rem 0;
+}
+
+.contact-footer-meta {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+}
+
+@media (min-width: 768px) {
+  .contact-footer-meta {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+/* 구직/연락 가능 상태 및 Green Dot 스타일 */
+.contact-status {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--contact-text-secondary);
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  background-color: #22c55e; /* 녹색 */
+  border-radius: 50%;
+  position: relative;
+  display: inline-block;
+}
+
+.status-dot::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #22c55e;
+  border-radius: 50%;
+  animation: pulse-ring 1.5s infinite cubic-bezier(0.215, 0.610, 0.355, 1);
+  opacity: 0;
+}
+
+@keyframes pulse-ring {
+  0% {
+    transform: scale(0.95);
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 0.3;
+  }
+  100% {
+    transform: scale(1.8);
+    opacity: 0;
+  }
+}
+
+.contact-section-dark-fixed .copyright {
+  color: var(--contact-text-muted) !important;
+}
+
+/* 최하단 거대 이름 */
+.contact-giant-name-wrapper {
+  width: 100%;
+  overflow: hidden;
+  line-height: 0.75;
+  margin-top: 1rem;
+  display: flex;
+  justify-content: center;
+}
+
+.contact-giant-name {
+  font-size: 15vw;
+  /* 뷰포트에 맞춘 유동적 크기 */
+  font-weight: 900;
+  font-family: var(--font-title);
+  color: rgba(255, 255, 255, 0.035);
+  letter-spacing: -0.05em;
+  white-space: nowrap;
+  user-select: none;
+}
+
+/* 다크모드 하에서의 거대 이름 텍스트 명암 감소 */
+:root[data-theme='dark'] .contact-giant-name {
+  color: rgba(255, 255, 255, 0.015) !important;
+}
+
+/* 모바일 하단 탭 바와의 간섭 방지 및 배경 연장 */
+@media (max-width: 768px) {
+  .contact-section-dark-fixed {
+    padding-bottom: calc(3.75rem + env(safe-area-inset-bottom) + 1.25rem) !important;
   }
 }

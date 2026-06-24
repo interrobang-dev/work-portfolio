@@ -24,10 +24,15 @@ const Contact: React.FC<ContactProps> = ({ profile }) => {
   };
 
   return (
-    <footer id="contact" className="section border-top contact-section">
+    <footer id="contact" className="section border-top contact-section contact-section-dark-fixed">
       <div className="container contact-container">
-        <h2>Contact</h2>
-        <p className="contact-subtitle">함께 성장할 수 있는 제안이나 궁금한 점이 있으시다면 언제든 연락해 주십시오.</p>
+        {/* 상단 슬로건 영역 */}
+        <div className="contact-slogan-wrapper">
+          <h2 className="contact-slogan">
+            <span className="highlight-white">Let's create</span>
+            <span className="highlight-muted">incredible work together.</span>
+          </h2>
+        </div>
 
         <div className="contact-grid">
           {/* Email (Gmail) Card */}
@@ -98,9 +103,24 @@ const Contact: React.FC<ContactProps> = ({ profile }) => {
           )}
         </div>
 
-        <p className="copyright">
-          © {new Date().getFullYear()} {profile.name}. Powered by React & Vite. All rights reserved.
-        </p>
+        {/* 구분선 및 메타 정보 */}
+        <div className="contact-footer-divider" />
+        
+        <div className="contact-footer-meta">
+          <div className="contact-status">
+            <span className="status-dot"></span>
+            <span className="status-text">Available for new opportunities</span>
+          </div>
+          
+          <p className="copyright">
+            © {new Date().getFullYear()} {profile.englishName}. All rights reserved.
+          </p>
+        </div>
+      </div>
+
+      {/* 최하단 거대 이름 타이포그래피 */}
+      <div className="contact-giant-name-wrapper">
+        <div className="contact-giant-name">{profile.englishName}</div>
       </div>
     </footer>
   );
