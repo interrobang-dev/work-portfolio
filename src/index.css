@@ -357,7 +357,7 @@ a {
 
   .hero-section {
     min-height: calc(100vh - 7.75rem) !important;
-    padding: 1rem 0 5.75rem 0 !important;
+    padding: 1rem 1rem 5.75rem 1rem !important;
   }
 
   .hero-title {
@@ -2048,34 +2048,43 @@ a {
 
 /* Contact 전용 변수 (기본 상태: 라이트 모드일 때 강제 딥 블랙) */
 .contact-section-dark-fixed {
-  --contact-bg: #0a0a0a;              /* 극도로 어두운 딥 블랙 */
-  --contact-card-bg: rgba(255, 255, 255, 0.03); /* 아주 연한 반투명 카드 배경 */
+  --contact-bg: #0a0a0a;
+  /* 극도로 어두운 딥 블랙 */
+  --contact-card-bg: rgba(255, 255, 255, 0.03);
+  /* 아주 연한 반투명 카드 배경 */
   --contact-card-border: rgba(255, 255, 255, 0.08);
   --contact-card-border-hover: rgba(255, 255, 255, 0.25);
-  
+
   --contact-text-primary: #ffffff;
-  --contact-text-secondary: #a3a3a3; /* 옅은 회색 */
-  --contact-text-muted: #525252;     /* 어두운 회색 */
+  --contact-text-secondary: #a3a3a3;
+  /* 옅은 회색 */
+  --contact-text-muted: #525252;
+  /* 어두운 회색 */
   --contact-border-top: rgba(255, 255, 255, 0.05);
-  
+
   background-color: var(--contact-bg) !important;
   color: var(--contact-text-primary) !important;
   border-top: 1px solid var(--contact-border-top) !important;
-  padding-bottom: 0 !important; /* 거대 텍스트가 바닥에 딱 붙도록 설정 */
+  padding-bottom: 0 !important;
+  /* 거대 텍스트가 바닥에 딱 붙도록 설정 */
   overflow: hidden;
 }
 
 /* 시스템 테마가 다크 모드일 때: 기존 다크 모드 배경과 융합 */
 :root[data-theme='dark'] .contact-section-dark-fixed {
-  --contact-bg: var(--bg);            /* 다크 모드 기본 배경 (#0f172a) */
-  --contact-card-bg: var(--card-bg);  /* 다크 모드 기본 카드 배경 (#1e293b) */
-  --contact-card-border: var(--border); /* 다크 모드 기본 보더 */
+  --contact-bg: var(--bg);
+  /* 다크 모드 기본 배경 (#0f172a) */
+  --contact-card-bg: var(--card-bg);
+  /* 다크 모드 기본 카드 배경 (#1e293b) */
+  --contact-card-border: var(--border);
+  /* 다크 모드 기본 보더 */
   --contact-card-border-hover: var(--border-hover);
-  
+
   --contact-text-primary: var(--text-primary);
   --contact-text-secondary: var(--text-secondary);
   --contact-text-muted: var(--text-muted);
-  --contact-border-top: var(--border); /* 다크 모드 기본 보더 */
+  --contact-border-top: var(--border);
+  /* 다크 모드 기본 보더 */
 }
 
 .contact-slogan-wrapper {
@@ -2213,7 +2222,8 @@ a {
 .status-dot {
   width: 8px;
   height: 8px;
-  background-color: #22c55e; /* 녹색 */
+  background-color: #22c55e;
+  /* 녹색 */
   border-radius: 50%;
   position: relative;
   display: inline-block;
@@ -2237,9 +2247,11 @@ a {
     transform: scale(0.95);
     opacity: 0.5;
   }
+
   50% {
     opacity: 0.3;
   }
+
   100% {
     transform: scale(1.8);
     opacity: 0;
