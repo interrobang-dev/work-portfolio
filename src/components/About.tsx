@@ -1,9 +1,19 @@
 import React, { useState } from 'react';
 import type { Profile, InterviewQuestion } from '../data/types';
+import { keywordStories } from '../data/portfolioData';
 
 interface AboutProps {
   profile: Profile;
   interviewQuestions: InterviewQuestion[];
+}
+
+interface ActiveModalState {
+  type: 'nickname' | 'keyword';
+  title: string;
+  description: string;
+  intro?: string;
+  image: string;
+  badge: string;
 }
 
 const About: React.FC<AboutProps> = ({ profile, interviewQuestions }) => {
@@ -11,47 +21,231 @@ const About: React.FC<AboutProps> = ({ profile, interviewQuestions }) => {
   const [selectedQuestionId, setSelectedQuestionId] = useState<string>(
     interviewQuestions.length > 0 ? interviewQuestions[0].id : ''
   );
+  
+  // Unified Story Modal State
+  const [activeModal, setActiveModal] = useState<ActiveModalState | null>(null);
+
+  const isModalOpen = !!activeModal;
+
+  // Handle Keyboard ESC and Body Scroll Lock
+  React.useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setActiveModal(null);
+      }
+    };
+
+    if (isModalOpen) {
+      window.addEventListener('keydown', handleKeyDown);
+      document.body.style.overflow = 'hidden';
+    }
+
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+      document.body.style.overflow = '';
+    };
+  }, [isModalOpen]);
 
   return (
     <section id="about" className="section border-top">
       <div className="container">
         <h2>About</h2>
 
-        {/* 1. Nickname Intro & Simple Keywords Section */}
-        <div className="about-intro-section">
-          <div className="about-nickname-intro">
-            <span className="nickname-badge">Nickname</span>
-            <h3 className="nickname-title">{profile.nickname}</h3>
-            <p className="nickname-intro-quote">"{profile.nicknameIntro}"</p>
-            <p className="nickname-story-text">{profile.nicknameDetail}</p>
-
-            <div className="nickname-blog-link-wrapper">
-              <a
-                href="https://interrobang.tistory.com/25"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="nickname-blog-link"
+        {/* 1. Profile Grid Section */}
+        <div className="about-profile-grid">
+          {/* Left Column: Photo Frame */}
+          <div className="profile-photo-wrapper">
+            <div className="profile-photo-container">
+              {profile.avatarUrl ? (
+                <img
+                  src={profile.avatarUrl}
+                  alt={profile.name}
+                  className="profile-photo"
+                  onError={(e) => {
+                    // Fallback to placeholder if image loading fails
+                    e.currentTarget.style.display = 'none';
+                    const parent = e.currentTarget.parentElement;
+                    if (parent) {
+                      const placeholder = parent.querySelector('.profile-photo-placeholder');
+                      if (placeholder) {
+                        (placeholder as HTMLElement).style.display = 'flex';
+                      }
+                    }
+                  }}
+                />
+              ) : null}
+              {/* High-quality Fallback SVG Placeholder */}
+              <div 
+                className="profile-photo-placeholder"
+                style={{ display: profile.avatarUrl ? 'none' : 'flex' }}
               >
-                블로그에서 관련 글 읽기 ➔
-              </a>
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM12 6C13.93 6 15.5 7.57 15.5 9.5C15.5 11.43 13.93 13 12 13C10.07 13 8.5 11.43 8.5 9.5C8.5 7.57 10.07 6 12 6ZM12 20C9.08 20 6.54 18.52 5.07 16.28C5.1 13.97 9.68 12.7 12 12.7C14.3 12.7 18.88 13.97 19.03 16.28C17.56 18.52 15.02 20 12 20Z" fill="currentColor" />
+                </svg>
+                <span className="placeholder-text">Photo Frame</span>
+              </div>
             </div>
           </div>
 
-          {/* Simple Keyword Badges List */}
-          <div className="about-keywords-simple">
-            <span className="keywords-label">Core Keywords :</span>
-            <div className="keywords-badges-list">
-              {profile.keywords.map((kw) => (
-                <span
-                  key={kw}
-                  className="keyword-badge-tag"
+          {/* Right Column: Profile Information */}
+          <div className="profile-info-wrapper">
+            <div className="profile-info-header">
+              <h3 className="profile-name">{profile.name}</h3>
+              <span className="profile-eng-name">{profile.englishName}</span>
+            </div>
+            
+            <p className="profile-bio">"{profile.shortBio}"</p>
+
+            <div className="profile-meta-list">
+              <div className="profile-meta-item">
+                <span className="meta-label">Role</span>
+                <span className="meta-value">Full-Stack Engineer</span>
+              </div>
+              
+              {/* Nickname Row with Modal Trigger */}
+              <div className="profile-meta-item nickname-row">
+                <span className="meta-label">Nickname</span>
+                <button 
+                  type="button" 
+                  className="nickname-toggle-btn"
+                  onClick={() => setActiveModal({
+                    type: 'nickname',
+                    title: profile.nickname,
+                    intro: profile.nicknameIntro,
+                    description: profile.nicknameDetail,
+                    image: profile.nicknameImage || profile.avatarUrl || "/profile.jpg",
+                    badge: "Developer Nickname"
+                  })}
                 >
-                  ✦ {kw}
-                </span>
-              ))}
+                  <span className="nickname-value">{profile.nickname}</span>
+                  <span className="nickname-toggle-icon">ⓘ</span>
+                </button>
+              </div>
+
+              {/* Core Values Item */}
+              <div className="profile-meta-item profile-keywords-item">
+                <span className="meta-label">Core Values</span>
+                <div className="keywords-list">
+                  {profile.keywords.map((kw) => (
+                    <button
+                      key={kw}
+                      type="button"
+                      className="keyword-tag"
+                      onClick={() => {
+                        const story = keywordStories.find(s => s.keyword === kw);
+                        if (story) {
+                          setActiveModal({
+                            type: 'keyword',
+                            title: story.title,
+                            description: story.description,
+                            image: story.image,
+                            badge: `Core Value - ${kw}`
+                          });
+                        }
+                      }}
+                    >
+                      <span className="keyword-value">{kw}</span>
+                      <span className="keyword-info-icon">ⓘ</span>
+                    </button>
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
         </div>
+
+        {/* 1.1 Unified Story Glassmorphism Modal */}
+        {activeModal && (
+          <div className="nickname-modal-overlay" onClick={() => setActiveModal(null)}>
+            <div 
+              className={`nickname-modal-content ${activeModal.type === 'nickname' ? 'modal-style-nickname' : 'modal-style-keyword'}`} 
+              onClick={(e) => e.stopPropagation()}
+            >
+              <button 
+                type="button" 
+                className="modal-close-btn"
+                onClick={() => setActiveModal(null)}
+                aria-label="Close Story"
+              >
+                &times;
+              </button>
+
+              {/* A. Nickname Modal Header: Rounded Profile Avatar */}
+              {activeModal.type === 'nickname' && (
+                <div className="modal-avatar-header">
+                  <div className="modal-avatar-container">
+                    <img 
+                      src={activeModal.image} 
+                      alt="Profile Avatar" 
+                      className="modal-avatar-img"
+                      onError={(e) => {
+                        e.currentTarget.style.display = 'none';
+                        const parent = e.currentTarget.parentElement;
+                        if (parent) {
+                          const fallback = parent.querySelector('.modal-avatar-fallback');
+                          if (fallback) (fallback as HTMLElement).style.display = 'flex';
+                        }
+                      }}
+                    />
+                    <div className="modal-avatar-fallback" style={{ display: 'none' }}>
+                      <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
+                      </svg>
+                    </div>
+                  </div>
+                  <span className="modal-badge">{activeModal.badge}</span>
+                  <h4 className="modal-title">{activeModal.title}</h4>
+                </div>
+              )}
+
+              {/* B. Keyword Modal Header: Wide Banner */}
+              {activeModal.type === 'keyword' && (
+                <div className="modal-banner-header">
+                  <div className="modal-banner-container">
+                    <img 
+                      src={activeModal.image} 
+                      alt="Value Banner" 
+                      className="modal-banner-img" 
+                    />
+                    <div className="modal-banner-overlay-gradient"></div>
+                  </div>
+                  <div className="modal-banner-text-wrapper">
+                    <span className="modal-badge">{activeModal.badge}</span>
+                    <h4 className="modal-title">{activeModal.title}</h4>
+                  </div>
+                </div>
+              )}
+
+              {/* Common Body Content */}
+              <div className="modal-body-content">
+                {activeModal.intro && (
+                  <blockquote className="modal-quote">
+                    "{activeModal.intro}"
+                  </blockquote>
+                )}
+                <div className="modal-desc-container">
+                  {activeModal.description.split('\n\n').map((paragraph, index) => (
+                    <p key={index} className="modal-desc">
+                      {paragraph}
+                    </p>
+                  ))}
+                </div>
+                {activeModal.type === 'nickname' && profile.blog && (
+                  <div className="modal-blog-link-wrapper">
+                    <a
+                      href="https://interrobang.tistory.com/25"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="modal-blog-link"
+                    >
+                      블로그에서 관련 글 읽기 ➔
+                    </a>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* 2. Self Interview Section - Magazine Split Layout */}
         <div className="interview-section">

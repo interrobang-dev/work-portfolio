@@ -615,10 +615,11 @@ a {
 }
 
 /* About Intro Layout Styles */
-.about-intro-section {
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
+/* About Profile Grid Styles (대안 3 - 2컬럼 매거진 그리드) */
+.about-profile-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2.5rem;
   background: var(--card-bg);
   border: 1px solid var(--border);
   border-radius: var(--radius);
@@ -627,56 +628,424 @@ a {
   transition: var(--transition);
 }
 
-.about-intro-section:hover {
-  border-color: var(--border-hover);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+@media (min-width: 768px) {
+  .about-profile-grid {
+    grid-template-columns: 1fr 2fr;
+    gap: 3.5rem;
+  }
 }
 
-.about-nickname-intro {
+.about-profile-grid:hover {
+  border-color: var(--border-hover);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.03);
+}
+
+/* Left Column: Photo Frame */
+.profile-photo-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.profile-photo-container {
+  position: relative;
+  width: 100%;
+  max-width: 280px;
+  aspect-ratio: 3 / 4;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.profile-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(100%);
+  transition: filter 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.profile-photo-container:hover .profile-photo {
+  filter: grayscale(0%);
+  transform: scale(1.03);
+}
+
+/* Photo Fallback Placeholder */
+.profile-photo-placeholder {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  color: var(--text-muted);
+  gap: 0.75rem;
+  background: linear-gradient(135deg, var(--card-bg) 0%, var(--bg) 100%);
 }
 
-.nickname-badge {
-  font-size: 0.75rem;
-  font-weight: 700;
+.profile-photo-placeholder svg {
+  width: 48px;
+  height: 48px;
+  opacity: 0.4;
   color: var(--accent);
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  width: fit-content;
 }
 
-.nickname-title {
+.placeholder-text {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  opacity: 0.5;
+}
+
+/* Right Column: Profile Info */
+.profile-info-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.profile-info-header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  margin-bottom: 1rem;
+}
+
+@media (min-width: 480px) {
+  .profile-info-header {
+    flex-direction: row;
+    align-items: baseline;
+    gap: 0.75rem;
+  }
+}
+
+.profile-name {
   font-size: 2rem;
   font-weight: 700;
   color: var(--text-primary);
   margin: 0;
 }
 
-.nickname-intro-quote {
-  font-size: 1.25rem;
+.profile-eng-name {
+  font-size: 1.125rem;
   font-weight: 500;
-  line-height: 1.5;
-  color: var(--text-primary);
+  color: var(--accent);
+  opacity: 0.8;
+}
+
+.profile-bio {
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: var(--text-secondary);
+  margin: 0 0 1.75rem 0;
   border-left: 2px solid var(--accent);
   padding-left: 1rem;
-  margin: 0.5rem 0;
+  font-style: italic;
 }
 
-.nickname-story-text {
+/* Profile Meta List */
+.profile-meta-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.875rem;
+  margin-bottom: 2rem;
+  border-top: 1px dashed var(--border);
+  padding-top: 1.5rem;
+}
+
+.profile-meta-item {
+  display: flex;
+  align-items: baseline;
+  gap: 1.5rem;
   font-size: 0.9375rem;
-  line-height: 1.75;
+}
+
+.meta-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  width: 100px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.meta-value {
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+/* Nickname (Code Name) Toggle Interaction */
+.nickname-row {
+  align-items: center;
+}
+
+.nickname-toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  text-align: left;
+  font-family: inherit;
+}
+
+.nickname-value {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  border-bottom: 1px dashed var(--border);
+  padding-bottom: 1px;
+  transition: var(--transition);
+}
+
+.nickname-toggle-btn:hover .nickname-value {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+}
+
+.nickname-toggle-icon {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--accent);
+  background: rgba(220, 220, 220, 0.08);
+  width: 17px;
+  height: 17px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: var(--transition);
+  padding: 0 0 1px 0; /* Align character vertically inside circle */
+}
+
+.nickname-toggle-btn:hover .nickname-toggle-icon {
+  background: var(--accent);
+  color: var(--bg);
+}
+
+/* Nickname Story Glassmorphism Modal Styles */
+.nickname-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  animation: modalFadeIn 0.3s ease forwards;
+}
+
+.nickname-modal-content {
+  position: relative;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 3rem 2.25rem 2.25rem;
+  width: 90%;
+  max-width: 560px; /* 기존 500px -> 560px 확장 */
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+  animation: modalSlideUp 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+/* Modal Variants */
+.modal-style-nickname {
+  max-width: 540px; /* 기존 480px -> 540px 확장 */
+  padding-top: 5.25rem !important; /* Adjust padding for larger offset avatar */
+}
+
+.modal-style-keyword {
+  padding: 0 !important;
+  overflow: hidden;
+  max-width: 600px; /* 기존 520px -> 600px 확장 */
+}
+
+/* A. Nickname Avatar Header (Overlap Floating) */
+.modal-avatar-header {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+  margin-bottom: 1rem;
+}
+
+.modal-avatar-container {
+  position: absolute;
+  top: -52px;
+  left: 2.25rem;
+  right: auto;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 3px solid var(--card-bg); /* Mask border with modal background */
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  background: var(--bg);
+  z-index: 10;
+}
+
+.modal-avatar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.modal-avatar-fallback {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: var(--bg);
+  color: var(--text-muted);
+}
+
+.modal-avatar-fallback svg {
+  width: 32px;
+  height: 32px;
+  opacity: 0.5;
+}
+
+/* B. Keyword Banner Header */
+.modal-banner-header {
+  position: relative;
+  width: 100%;
+}
+
+.modal-banner-container {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 5.5; /* Slimmer banner ratio (approx. 2.9) */
+  overflow: hidden;
+  background: var(--bg);
+}
+
+.modal-banner-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.modal-banner-overlay-gradient {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 40%;
+  background: linear-gradient(to top, var(--card-bg) 0%, transparent 100%);
+}
+
+.modal-banner-text-wrapper {
+  padding: 1.5rem 2.25rem 0.25rem; /* Reduced padding to make it more compact */
+}
+
+/* Common Body Content Padding for Keyword Modal */
+.modal-style-keyword .modal-body-content {
+  padding: 0 2.25rem 2.25rem;
+}
+
+/* Close Button Overrides for Banner */
+.modal-style-keyword .modal-close-btn {
+  color: #fff;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+  z-index: 10;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 0 4px 0;
+  top: 1rem;
+  right: 1rem;
+  font-size: 1.5rem;
+}
+
+.modal-style-keyword .modal-close-btn:hover {
+  background: rgba(0, 0, 0, 0.4);
+  color: var(--accent);
+}
+
+/* Modal Internal Elements */
+.modal-close-btn {
+  position: absolute;
+  top: 1rem;
+  right: 1.25rem;
+  background: transparent;
+  border: none;
+  font-size: 1.75rem;
+  line-height: 1;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: var(--transition);
+  padding: 0.25rem;
+}
+
+.modal-close-btn:hover {
+  color: var(--text-primary);
+}
+
+.modal-badge {
+  display: inline-block;
+  font-size: 0.8125rem; /* 기존 0.6875rem -> 0.8125rem(13px) 상향 */
+  font-weight: 700;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 0.5rem;
+}
+
+.modal-title {
+  font-size: 2rem; /* 기존 1.75rem -> 2rem(32px) 상향 */
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0 0 1.25rem 0;
+}
+
+.modal-quote {
+  font-size: 1.125rem; /* 기존 1rem -> 1.125rem(18px) 상향 */
+  font-weight: 600;
+  line-height: 1.6; /* 가독성을 위한 line-height 상향 */
+  color: var(--text-primary);
+  border-left: 2.5px solid var(--accent); /* 두께감 미세 상향 */
+  padding-left: 1rem;
+  margin: 0 0 1.25rem 0;
+}
+
+.modal-desc-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.modal-desc {
+  font-size: 1rem; /* 기존 0.875rem -> 1rem(16px) 상향 */
+  line-height: 1.75; /* 가독성을 위한 line-height 조정 */
   color: var(--text-secondary);
   margin: 0;
+  white-space: pre-wrap;
+  text-indent: 1rem;
 }
 
-.nickname-blog-link-wrapper {
-  margin-top: 0.5rem;
+.modal-blog-link-wrapper {
+  margin-top: 1.5rem;
+  border-top: 1px dashed var(--border);
+  padding-top: 1.25rem;
 }
 
-.nickname-blog-link {
-  font-size: 0.875rem;
+.modal-blog-link {
+  font-size: 0.9375rem; /* 기존 0.8125rem -> 0.9375rem(15px) 상향 */
   font-weight: 600;
   color: var(--accent);
   display: inline-flex;
@@ -684,63 +1053,75 @@ a {
   gap: 0.25rem;
   transition: var(--transition);
   border-bottom: 1px dashed transparent;
-  padding-bottom: 2px;
+  padding-bottom: 1px;
 }
 
-.nickname-blog-link:hover {
+.modal-blog-link:hover {
   color: var(--text-primary);
   border-bottom-color: var(--text-primary);
 }
 
-/* Simple Keyword Badges List */
-.about-keywords-simple {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-  padding-top: 1.75rem;
-  border-top: 1px solid var(--border);
+/* Animations */
+@keyframes modalFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
-@media (min-width: 640px) {
-  .about-keywords-simple {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 1.25rem;
+@keyframes modalSlideUp {
+  from {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
   }
 }
 
-.keywords-label {
-  font-size: 0.8125rem;
-  font-weight: 700;
-  color: var(--text-muted);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  white-space: nowrap;
+/* Keywords Item inside Profile Meta List */
+.profile-keywords-item {
+  align-items: center;
 }
 
-.keywords-badges-list {
+.keywords-list {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
 }
 
-.keyword-badge-tag {
-  font-size: 0.8125rem;
+.keyword-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  flex-shrink: 0;
+  white-space: nowrap;
+  font-size: 0.75rem;
   font-weight: 500;
   color: var(--text-secondary);
-  background-color: var(--bg);
+  background-color: transparent;
   border: 1px solid var(--border);
-  padding: 0.375rem 0.875rem;
+  padding: 0.15rem 0.55rem 0.15rem 0.65rem;
   border-radius: 30px;
-  cursor: help;
+  line-height: 1.2;
+  transition: var(--transition);
+  cursor: pointer;
+}
+
+.keyword-tag:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+.keyword-info-icon {
+  font-size: 0.6875rem;
+  color: var(--accent);
+  opacity: 0.7;
   transition: var(--transition);
 }
 
-.keyword-badge-tag:hover {
-  color: var(--text-primary);
-  border-color: var(--border-hover);
-  background-color: var(--card-bg);
+.keyword-tag:hover .keyword-info-icon {
+  opacity: 1;
+  transform: scale(1.05);
 }
 
 /* Interview Section & Magazine Q&A Styles */

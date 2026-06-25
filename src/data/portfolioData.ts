@@ -1,7 +1,14 @@
-import type { Profile, SkillCategory, Project, Experience, InterviewQuestion, Certificate } from './types';
+import type { Profile, SkillCategory, Project, Experience, InterviewQuestion, Certificate, KeywordStory } from './types';
 import engsoftLogo from '../assets/logos/engsoft-logo.png';
 import spartaLogo from '../assets/logos/sparta-logo.png';
 import kuLogo from '../assets/logos/ku-logo.png';
+
+// Value assets
+import responsibilityImg from '../assets/responsibility.png';
+import persistenceImg from '../assets/persistence.png';
+import perspectiveImg from '../assets/perspective.png';
+import empathyImg from '../assets/empathy.png';
+import interrobangProfileImg from '../assets/interrobang-profile.png';
 
 // Technology stack logos
 import javaLogo from '../assets/logos/java-logo.svg';
@@ -32,7 +39,9 @@ export const profileData: Profile = {
   nickname: "Interrobang",
   nicknameIntro: "의문을 명쾌한 느낌표로 바꾸는, 집요하게 답을 찾아내는 풀스택 엔지니어",
   nicknameDetail: "Interrobang은 의문을 나타내는 물음표(?)와 감탄을 나타내는 느낌표(!)가 결합된 문장 기호(‽)입니다. 개발을 마주하며 직면하는 수많은 '왜 그럴까?'라는 물음표를, 집요한 분석과 쿼리 최적화 및 비즈니스 코드 튜닝을 통해 감탄할 만한 성능 향상이라는 '느낌표'로 바꾸는 저의 개발 신조를 표현합니다. 레거시 코드의 기술 부채를 해소하고 비즈니스 가치를 극대화하는 것에 가장 큰 희열을 느낍니다.",
-  keywords: ["책임감", "끈기", "넓은 시야", "배려심"]
+  keywords: ["책임감", "끈기", "넓은 시야", "배려심"],
+  avatarUrl: "/profile.jpg",
+  nicknameImage: interrobangProfileImg
 };
 
 export const skillsData: SkillCategory[] = [
@@ -283,6 +292,37 @@ export const certificatesData: Certificate[] = [
     name: "정보처리기사",
     issuer: "한국산업인력공단",
     date: "2022.06"
+  }
+];
+
+export const keywordStories: KeywordStory[] = [
+  {
+    id: "responsibility",
+    keyword: "책임감",
+    title: "공동체에 기여하며 다져온 책임의 무게",
+    description: "중학교 학생회장부터 고등학교 학년장, 대학교 합창단 파트장, 사내 러닝 동호회 총무, 취미 소모임 운영진에 이르기까지 크고 작은 역할을 수행하며 공동체에 기여하는 보람을 배웠습니다. 리더와 서포터 역할을 고루 즐기는 과정에서, 책임감은 제 삶의 떼려야 뗄 수 없는 기본 가치가 되었습니다.\n\n특히 엔지니어로서 책임감은 제품의 품질을 결정하는 가장 핵심적인 요소라고 생각합니다. 프로젝트의 완성도를 끝까지 책임지는 오너십과 동료 및 회사에 기여하려는 사명감이 바탕이 될 때, 비로소 지속적인 성과와 완성도 높은 결과물을 만들어낼 수 있다고 확신합니다.\n\n나아가 책임감은 제가 지향하는 모든 핵심 가치의 뿌리이기도 합니다. 스스로의 선택과 목표에 책임을 지려는 의지는 '끈기'로 발현되고, 타인 및 공동체와의 관계에 책임을 다하려는 태도는 '존중과 배려심'으로 이어집니다. 결국 저에게 책임감이란 삶을 지탱하고 협업을 완성하는 가장 단단한 출발점입니다.",
+    image: responsibilityImg
+  },
+  {
+    id: "persistence",
+    keyword: "끈기",
+    title: "시스템 병목을 해소하는 집요함",
+    description: "실무 대시보드 통계 조회 지연 문제를 해결하기 위해 며칠간 JPA 영속성 컨텍스트와 SQL 실행 계획을 분석했습니다. 끝까지 포기하지 않고 N+1 쿼리 문제를 풀며 95%의 응답 시간 단축을 이뤄냈습니다.",
+    image: persistenceImg
+  },
+  {
+    id: "perspective",
+    keyword: "넓은 시야",
+    title: "비즈니스와 기술을 아우르는 시각",
+    description: "단순 백엔드 개발에 갇히지 않고 프론트엔드 React 연동, Docker를 통한 환경 통합, AWS 비용 절감을 위한 OS 전환 등 제품 전체의 구조와 인프라 효율성을 조망합니다.",
+    image: perspectiveImg
+  },
+  {
+    id: "empathy",
+    keyword: "배려심",
+    title: "사용자와 동료의 관점을 읽는 공감",
+    description: "스마트건설 현장의 특수한 작업 환경을 이해하기 위해 현업 근무자들의 목소리에 경청합니다. 코드 리뷰에서도 동료들의 피드백을 유연하게 수용하며 함께 성장하는 협업을 추구합니다.",
+    image: empathyImg
   }
 ];
 

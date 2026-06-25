@@ -10,6 +10,8 @@ export interface Profile {
   nicknameIntro: string;
   nicknameDetail: string;
   keywords: string[];
+  avatarUrl?: string;
+  nicknameImage?: string;
 }
 
 export interface SkillItem {
@@ -68,6 +70,14 @@ export interface Certificate {
   name: string;
   issuer: string;
   date: string;
+}
+
+export interface KeywordStory {
+  id: string;
+  keyword: string;
+  title: string;
+  description: string;
+  image: string;
 }
 
 
