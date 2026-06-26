@@ -14,6 +14,7 @@ interface ActiveModalState {
   intro?: string;
   image: string;
   badge: string;
+  keywordIndex?: number;
 }
 
 const About: React.FC<AboutProps> = ({ profile, interviewQuestions }) => {
@@ -21,9 +22,44 @@ const About: React.FC<AboutProps> = ({ profile, interviewQuestions }) => {
   const [selectedQuestionId, setSelectedQuestionId] = useState<string>(
     interviewQuestions.length > 0 ? interviewQuestions[0].id : ''
   );
-  
+
   // Unified Story Modal State
   const [activeModal, setActiveModal] = useState<ActiveModalState | null>(null);
+  const [isClosing, setIsClosing] = useState<boolean>(false);
+
+  const handleCloseModal = () => {
+    setIsClosing(true);
+    setTimeout(() => {
+      setActiveModal(null);
+      setIsClosing(false);
+    }, 300);
+  };
+
+  // Self Interview Fold/Unfold State
+  const [isInterviewOpen, setIsInterviewOpen] = useState<boolean>(false);
+
+  const handleSectionClick = () => {
+    if (!isInterviewOpen) {
+      setIsInterviewOpen(true);
+    }
+  };
+
+  const handleHeaderClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setIsInterviewOpen(!isInterviewOpen);
+  };
+
+  const handleJumpKeyword = (idx: number) => {
+    const story = keywordStories[idx];
+    setActiveModal({
+      type: 'keyword',
+      keywordIndex: idx,
+      title: story.title,
+      description: story.description,
+      image: story.image,
+      badge: `Core Value - ${story.keyword}`
+    });
+  };
 
   const isModalOpen = !!activeModal;
 
@@ -31,7 +67,7 @@ const About: React.FC<AboutProps> = ({ profile, interviewQuestions }) => {
   React.useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
-        setActiveModal(null);
+        handleCloseModal();
       }
     };
 
@@ -75,7 +111,7 @@ const About: React.FC<AboutProps> = ({ profile, interviewQuestions }) => {
                 />
               ) : null}
               {/* High-quality Fallback SVG Placeholder */}
-              <div 
+              <div
                 className="profile-photo-placeholder"
                 style={{ display: profile.avatarUrl ? 'none' : 'flex' }}
               >
@@ -93,7 +129,7 @@ const About: React.FC<AboutProps> = ({ profile, interviewQuestions }) => {
               <h3 className="profile-name">{profile.name}</h3>
               <span className="profile-eng-name">{profile.englishName}</span>
             </div>
-            
+
             <p className="profile-bio">"{profile.shortBio}"</p>
 
             <div className="profile-meta-list">
@@ -101,12 +137,12 @@ const About: React.FC<AboutProps> = ({ profile, interviewQuestions }) => {
                 <span className="meta-label">Role</span>
                 <span className="meta-value">Full-Stack Engineer</span>
               </div>
-              
+
               {/* Nickname Row with Modal Trigger */}
               <div className="profile-meta-item nickname-row">
                 <span className="meta-label">Nickname</span>
-                <button 
-                  type="button" 
+                <button
+                  type="button"
                   className="nickname-toggle-btn"
                   onClick={() => setActiveModal({
                     type: 'nickname',
@@ -126,25 +162,23 @@ const About: React.FC<AboutProps> = ({ profile, interviewQuestions }) => {
               <div className="profile-meta-item profile-keywords-item">
                 <span className="meta-label">Core Values</span>
                 <div className="keywords-list">
-                  {profile.keywords.map((kw) => (
+                  {keywordStories.map((story, storyIndex) => (
                     <button
-                      key={kw}
+                      key={story.id}
                       type="button"
                       className="keyword-tag"
                       onClick={() => {
-                        const story = keywordStories.find(s => s.keyword === kw);
-                        if (story) {
-                          setActiveModal({
-                            type: 'keyword',
-                            title: story.title,
-                            description: story.description,
-                            image: story.image,
-                            badge: `Core Value - ${kw}`
-                          });
-                        }
+                        setActiveModal({
+                          type: 'keyword',
+                          keywordIndex: storyIndex,
+                          title: story.title,
+                          description: story.description,
+                          image: story.image,
+                          badge: `Core Value - ${story.keyword}`
+                        });
                       }}
                     >
-                      <span className="keyword-value">{kw}</span>
+                      <span className="keyword-value">{story.keyword}</span>
                       <span className="keyword-info-icon">ⓘ</span>
                     </button>
                   ))}
@@ -156,15 +190,18 @@ const About: React.FC<AboutProps> = ({ profile, interviewQuestions }) => {
 
         {/* 1.1 Unified Story Glassmorphism Modal */}
         {activeModal && (
-          <div className="nickname-modal-overlay" onClick={() => setActiveModal(null)}>
-            <div 
-              className={`nickname-modal-content ${activeModal.type === 'nickname' ? 'modal-style-nickname' : 'modal-style-keyword'}`} 
+          <div 
+            className={`nickname-modal-overlay ${isClosing ? 'closing' : ''}`} 
+            onClick={handleCloseModal}
+          >
+            <div
+              className={`nickname-modal-content ${activeModal.type === 'nickname' ? 'modal-style-nickname' : 'modal-style-keyword'} ${isClosing ? 'closing' : ''}`}
               onClick={(e) => e.stopPropagation()}
             >
-              <button 
-                type="button" 
+              <button
+                type="button"
                 className="modal-close-btn"
-                onClick={() => setActiveModal(null)}
+                onClick={handleCloseModal}
                 aria-label="Close Story"
               >
                 &times;
@@ -174,9 +211,9 @@ const About: React.FC<AboutProps> = ({ profile, interviewQuestions }) => {
               {activeModal.type === 'nickname' && (
                 <div className="modal-avatar-header">
                   <div className="modal-avatar-container">
-                    <img 
-                      src={activeModal.image} 
-                      alt="Profile Avatar" 
+                    <img
+                      src={activeModal.image}
+                      alt="Profile Avatar"
                       className="modal-avatar-img"
                       onError={(e) => {
                         e.currentTarget.style.display = 'none';
@@ -189,7 +226,7 @@ const About: React.FC<AboutProps> = ({ profile, interviewQuestions }) => {
                     />
                     <div className="modal-avatar-fallback" style={{ display: 'none' }}>
                       <svg viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z" />
                       </svg>
                     </div>
                   </div>
@@ -200,12 +237,12 @@ const About: React.FC<AboutProps> = ({ profile, interviewQuestions }) => {
 
               {/* B. Keyword Modal Header: Wide Banner */}
               {activeModal.type === 'keyword' && (
-                <div className="modal-banner-header">
+                <div className="modal-banner-header modal-tab-transition" key={`banner-${activeModal.keywordIndex}`}>
                   <div className="modal-banner-container">
-                    <img 
-                      src={activeModal.image} 
-                      alt="Value Banner" 
-                      className="modal-banner-img" 
+                    <img
+                      src={activeModal.image}
+                      alt="Value Banner"
+                      className="modal-banner-img"
                     />
                     <div className="modal-banner-overlay-gradient"></div>
                   </div>
@@ -217,7 +254,7 @@ const About: React.FC<AboutProps> = ({ profile, interviewQuestions }) => {
               )}
 
               {/* Common Body Content */}
-              <div className="modal-body-content">
+              <div className="modal-body-content modal-tab-transition" key={`body-${activeModal.keywordIndex}`}>
                 {activeModal.intro && (
                   <blockquote className="modal-quote">
                     "{activeModal.intro}"
@@ -242,17 +279,58 @@ const About: React.FC<AboutProps> = ({ profile, interviewQuestions }) => {
                     </a>
                   </div>
                 )}
+
               </div>
+
+              {/* Text Chip Navigator (Core Value Only) */}
+              {activeModal.type === 'keyword' && activeModal.keywordIndex !== undefined && (
+                <div className="modal-chip-navigation">
+                  {keywordStories.map((story, idx) => {
+                    const isActive = activeModal.keywordIndex === idx;
+                    return (
+                      <button
+                        key={story.id}
+                        type="button"
+                        className={`modal-nav-chip ${isActive ? 'active' : ''}`}
+                        onClick={() => handleJumpKeyword(idx)}
+                        aria-label={`Go to ${story.keyword}`}
+                      >
+                        {story.keyword}
+                      </button>
+                    );
+                  })}
+                </div>
+              )}
             </div>
           </div>
         )}
 
-        {/* 2. Self Interview Section - Magazine Split Layout */}
-        <div className="interview-section">
-          <h3 className="about-subtitle">Self Interview</h3>
+        {/* 2. Self Interview Section - Editorial Spotlight Layout (Hidden under profile card, expandable) */}
+        <div
+          className={`interview-section ${isInterviewOpen ? 'open' : 'collapsed'}`}
+          onClick={handleSectionClick}
+        >
+          {/* Gradual fade-out overlay for collapsed state */}
+          <div className="interview-section-fade" />
+
+          <div
+            className="interview-header-group"
+            onClick={handleHeaderClick}
+          >
+            <span className="interview-pre-title">Editorial Spotlight</span>
+            <h3 className="about-subtitle interview-main-title">
+              Self Interview
+              <span className={`interview-toggle-arrow ${isInterviewOpen ? 'open' : ''}`}>
+                ▾
+              </span>
+            </h3>
+            <p className="interview-lead-text">
+              엔지니어로서의 가치관과 개발을 대하는 태도에 관한 자문자답입니다.
+            </p>
+          </div>
 
           <div className="interview-magazine-wrapper">
-            {/* Left Question List */}
+            {/* Left Interactive Question Cards */}
             <div className="magazine-questions-column">
               {interviewQuestions.map((q, idx) => {
                 const isSelected = selectedQuestionId === q.id;
@@ -261,27 +339,35 @@ const About: React.FC<AboutProps> = ({ profile, interviewQuestions }) => {
                   <button
                     key={q.id}
                     type="button"
-                    className={`magazine-question-item ${isSelected ? 'active' : ''}`}
-                    onClick={() => setSelectedQuestionId(q.id)}
+                    className={`magazine-question-card ${isSelected ? 'active' : ''}`}
+                    onClick={(e) => {
+                      e.stopPropagation(); // prevent collapsing the section when clicking a question card
+                      setSelectedQuestionId(q.id);
+                    }}
                   >
+                    <div className="card-indicator" />
                     <span className="magazine-question-num">{displayIndex}</span>
-                    <span className="magazine-question-text">{q.question}</span>
+                    <div className="card-text-group">
+                      <span className="card-category-tag">{q.category}</span>
+                      <span className="magazine-question-text">{q.question}</span>
+                    </div>
                   </button>
                 );
               })}
             </div>
 
-            {/* Right Answer Detail Panel */}
+            {/* Right Editorial Answer Panel */}
             <div className="magazine-answer-column">
+              <span className="giant-interrobang-mark">‽</span>
               {interviewQuestions.map((q) => {
                 if (q.id !== selectedQuestionId) return null;
                 return (
-                  <div key={q.id} className="magazine-answer-content fade-in-active">
-                    <span className="magazine-answer-category">{q.category}</span>
-                    <blockquote className="magazine-blockquote">
-                      "{q.answer}"
-                    </blockquote>
-                    <p className="magazine-desc-text">
+                  <div key={q.id} className="magazine-answer-content">
+                    <span className="magazine-answer-category delay-1">{q.category}</span>
+                    <h4 className="magazine-answer-headline delay-2">
+                      {q.answer}
+                    </h4>
+                    <p className="magazine-desc-text delay-3">
                       {q.description}
                     </p>
                   </div>

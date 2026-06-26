@@ -9,7 +9,6 @@ export interface Profile {
   nickname: string;
   nicknameIntro: string;
   nicknameDetail: string;
-  keywords: string[];
   avatarUrl?: string;
   nicknameImage?: string;
 }

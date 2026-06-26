@@ -6,7 +6,6 @@ import kuLogo from '../assets/logos/ku-logo.png';
 // Value assets
 import responsibilityImg from '../assets/responsibility.png';
 import persistenceImg from '../assets/persistence.png';
-import perspectiveImg from '../assets/perspective.png';
 import empathyImg from '../assets/empathy.png';
 import interrobangProfileImg from '../assets/interrobang-profile.png';
 
@@ -39,7 +38,6 @@ export const profileData: Profile = {
   nickname: "Interrobang",
   nicknameIntro: "의문을 명쾌한 느낌표로 바꾸는, 집요하게 답을 찾아내는 풀스택 엔지니어",
   nicknameDetail: "Interrobang은 의문을 나타내는 물음표(?)와 감탄을 나타내는 느낌표(!)가 결합된 문장 기호(‽)입니다. 개발을 마주하며 직면하는 수많은 '왜 그럴까?'라는 물음표를, 집요한 분석과 쿼리 최적화 및 비즈니스 코드 튜닝을 통해 감탄할 만한 성능 향상이라는 '느낌표'로 바꾸는 저의 개발 신조를 표현합니다. 레거시 코드의 기술 부채를 해소하고 비즈니스 가치를 극대화하는 것에 가장 큰 희열을 느낍니다.",
-  keywords: ["책임감", "끈기", "넓은 시야", "배려심"],
   avatarUrl: "/profile.jpg",
   nicknameImage: interrobangProfileImg
 };
@@ -253,28 +251,28 @@ export const interviewQuestions: InterviewQuestion[] = [
   {
     id: "q-strength",
     question: "Q. 백엔드 엔지니어로서 가장 몰입하는 영역은 무엇인가요?",
-    answer: "레거시 분석과 성능 최적화입니다.",
+    answer: "A. 레거시 분석과 성능 최적화입니다.",
     description: "실무에서 JPA N+1 문제 해결 및 복잡한 통계 쿼리를 튜닝하여 API 응답 지연을 95% 단축했습니다. 보이지 않는 시스템의 병목을 분석하고 걷어내는 과정에서 희열을 느낍니다.",
     category: "Core Strength"
   },
   {
     id: "q-learning",
     question: "Q. 기술을 습득하는 원칙은 무엇인가요?",
-    answer: "직접 만들어보며 체득합니다.",
+    answer: "A. 직접 만들어보며 체득합니다.",
     description: "개념 이해에 그치지 않고, React/TypeScript 환경을 구축하거나 Docker 컨테이너를 로컬에 직접 띄워 테스트하며 지식을 체화합니다.",
     category: "Learning"
   },
   {
     id: "q-collaboration",
     question: "Q. 협업 시 소통 방식은 어떤가요?",
-    answer: "끈기 있는 소통과 유연한 수용력",
+    answer: "A. 끈기 있는 소통과 유연한 수용력을 갖춘 협업이 강점입니다. ",
     description: "문제를 해결할 때까지 물고 늘어지는 집요함을 발휘하면서도, 설계 및 코드 리뷰 과정에서는 동료의 피드백을 유연하게 수용하여 최선의 결론을 도출합니다.",
     category: "Collaboration"
   },
   {
     id: "q-vision",
     question: "Q. 궁극적으로 지향하는 엔지니어상은 무엇인가요?",
-    answer: "비즈니스에 가치를 더하는 아키텍트",
+    answer: "A. 비즈니스에 가치를 더하는 엔지니어입니다.",
     description: "기술적 화려함에 매몰되지 않고, 비즈니스의 성장 속도에 기민하게 대응할 수 있도록 아키텍처의 단순함과 확장성을 동시에 지향합니다.",
     category: "Vision"
   }
@@ -306,22 +304,15 @@ export const keywordStories: KeywordStory[] = [
   {
     id: "persistence",
     keyword: "끈기",
-    title: "시스템 병목을 해소하는 집요함",
-    description: "실무 대시보드 통계 조회 지연 문제를 해결하기 위해 며칠간 JPA 영속성 컨텍스트와 SQL 실행 계획을 분석했습니다. 끝까지 포기하지 않고 N+1 쿼리 문제를 풀며 95%의 응답 시간 단축을 이뤄냈습니다.",
+    title: "한계를 극복하고 난제를 풀어내는 집요함",
+    description: "대학원을 마치고 개발자라는 완전히 새로운 영역에 도전했을 때, 비전공자로서 마주한 한계를 극복하게 한 원동력은 오직 끈기였습니다. 매일 12시간 이상 모니터 앞을 지키며 수많은 기술적 병목과 오류들을 스스로 해결해 나갔고, 현업 엔지니어로 거듭나기까지 배움에 대한 깊은 몰입과 노력을 멈추지 않는 지속성을 체화했습니다.\n\n이처럼 배움에서 다져진 끈기는 실무에서 남들이 기피하는 복잡한 레거시 코드를 해독하고 시스템을 최적화하는 데 강력한 무기가 되었습니다. 얽히고설킨 스파게티형 코드를 꼼꼼히 분석하여 기능 단위의 모듈 구조로 점진적 리팩토링을 완수했으며, 지연이 발생하는 쿼리를 끝까지 추적해 성능을 대폭 향상시키는 가시적인 성과를 달성했습니다.\n\n난관 앞에서도 타협하지 않고 끝까지 답을 찾아내고야 마는 집요한 끈기는, 저를 기술적 한계에 가두지 않고 지속적으로 역량을 확장하게 만드는 원동력입니다.",
     image: persistenceImg
-  },
-  {
-    id: "perspective",
-    keyword: "넓은 시야",
-    title: "비즈니스와 기술을 아우르는 시각",
-    description: "단순 백엔드 개발에 갇히지 않고 프론트엔드 React 연동, Docker를 통한 환경 통합, AWS 비용 절감을 위한 OS 전환 등 제품 전체의 구조와 인프라 효율성을 조망합니다.",
-    image: perspectiveImg
   },
   {
     id: "empathy",
     keyword: "배려심",
-    title: "사용자와 동료의 관점을 읽는 공감",
-    description: "스마트건설 현장의 특수한 작업 환경을 이해하기 위해 현업 근무자들의 목소리에 경청합니다. 코드 리뷰에서도 동료들의 피드백을 유연하게 수용하며 함께 성장하는 협업을 추구합니다.",
+    title: "함께 조화를 이루며 가치를 더하는 공감",
+    description: "주변 사람들과 조화를 이루며 함께 살아가는 것은 저에게 큰 행복입니다. 타인을 향한 배려가 늘 좋은 결과로 이어지거나 무조건적인 환영을 받는 것은 아님을 잘 알고 있습니다. 그럼에도 서로 양보하고 존중할 때 공동체가 한 단계 나아갈 수 있음을 믿기에, 항상 상대방의 입장을 먼저 살피고 상생의 균형을 찾고자 묵묵히 노력합니다.\n\n이러한 철학은 개발 협업에서 강력한 윤활유가 됩니다. 명확한 API 문서와 꼼꼼한 예외 처리를 먼저 준비하여 전달하려 힘쓰며, 코드 리뷰나 설계 과정에서는 제 고집을 앞세우기보다 상대방의 논리와 의도를 먼저 경청하여 조화로운 기술적 합의점을 도출합니다.\n\n더불어 사용자의 불편함에 진심으로 공감하고 진짜 요구사항을 발굴하는 데도 배려심이 작동합니다. 기획서에 적힌 기능을 기계적으로 만드는 것을 넘어, 실제 시스템을 마주할 사용자들의 눈높이에서 사용 환경과 고충을 치열하게 대입해 봄으로써 개발한 기술이 사용자에게 실질적인 유용함과 가치를 제공할 수 있도록 노력합니다.",
     image: empathyImg
   }
 ];

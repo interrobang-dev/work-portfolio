@@ -21,6 +21,13 @@
   /* Spacing */
   --container-max-width: 1200px;
   --radius: 4px;
+  --radius-lg: 8px;
+
+  /* Shadows */
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
+  --shadow-md: 0 8px 24px -4px rgba(0, 0, 0, 0.08), 0 4px 12px -2px rgba(0, 0, 0, 0.04);
+  --shadow-lg: 0 16px 36px -8px rgba(0, 0, 0, 0.08), 0 8px 18px -4px rgba(0, 0, 0, 0.04);
+  --shadow-lg-hover: 0 24px 48px -12px rgba(0, 0, 0, 0.12), 0 12px 24px -6px rgba(0, 0, 0, 0.06);
 
   /* Transition */
   --transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
@@ -45,6 +52,12 @@
   /* Blue-500 */
   --accent-light: rgba(59, 130, 246, 0.1);
   --header-bg: rgba(15, 23, 42, 0.85);
+
+  /* Shadows (Dark Mode) */
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 8px 24px -4px rgba(0, 0, 0, 0.4), 0 4px 12px -2px rgba(0, 0, 0, 0.2);
+  --shadow-lg: 0 16px 36px -8px rgba(0, 0, 0, 0.5), 0 8px 18px -4px rgba(0, 0, 0, 0.3);
+  --shadow-lg-hover: 0 24px 48px -12px rgba(0, 0, 0, 0.6), 0 12px 24px -6px rgba(0, 0, 0, 0.4);
 }
 
 /* Reset */
@@ -624,8 +637,11 @@ a {
   border: 1px solid var(--border);
   border-radius: var(--radius);
   padding: 2.5rem;
-  margin-bottom: 4rem;
+  margin-bottom: 1.5rem;
   transition: var(--transition);
+  position: relative;
+  z-index: 2;
+  box-shadow: var(--shadow-lg);
 }
 
 @media (min-width: 768px) {
@@ -637,7 +653,8 @@ a {
 
 .about-profile-grid:hover {
   border-color: var(--border-hover);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.03);
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg-hover);
 }
 
 /* Left Column: Photo Frame */
@@ -821,7 +838,8 @@ a {
   justify-content: center;
   border-radius: 50%;
   transition: var(--transition);
-  padding: 0 0 1px 0; /* Align character vertically inside circle */
+  padding: 0 0 1px 0;
+  /* Align character vertically inside circle */
 }
 
 .nickname-toggle-btn:hover .nickname-toggle-icon {
@@ -846,28 +864,101 @@ a {
   animation: modalFadeIn 0.3s ease forwards;
 }
 
+.nickname-modal-overlay.closing {
+  animation: modalFadeOut 0.3s ease forwards;
+}
+
+.nickname-modal-content.closing {
+  animation: modalSlideDown 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+/* Core Value Modal Text Chip Navigation (Fixed Footer) */
+.modal-chip-navigation {
+  display: flex;
+  justify-content: center;
+  gap: 1.25rem;
+  padding: 1.25rem 2.25rem 1.5rem;
+  /* 하단 풋터 내부 패딩 처리 */
+  border-top: 1px dashed var(--border);
+  background: var(--card-bg);
+  /* 스크롤되는 본문 텍스트 마스킹 */
+  flex-shrink: 0;
+  /* 모달 크기 변화 시 세로가 찌그러지지 않도록 고정 */
+}
+
+.modal-nav-chip {
+  background: transparent;
+  border: none;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  padding: 0.25rem 0.5rem;
+  cursor: pointer;
+  transition: var(--transition);
+  position: relative;
+}
+
+.modal-nav-chip:hover {
+  color: var(--text-primary);
+}
+
+.modal-nav-chip.active {
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.modal-nav-chip.active::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: var(--accent);
+  border-radius: 2px;
+}
+
+@media (max-width: 768px) {
+  .modal-chip-navigation {
+    gap: 0.5rem;
+    margin-top: 1.25rem;
+    padding-top: 1rem;
+  }
+
+  .modal-nav-chip {
+    font-size: 0.8125rem;
+    padding: 0.25rem 0.35rem;
+  }
+}
+
 .nickname-modal-content {
   position: relative;
   background: var(--card-bg);
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  padding: 3rem 2.25rem 2.25rem;
+  padding: 0;
+  /* 내부 스크롤바 정렬을 위해 카드 패딩 초기화 */
   width: 90%;
-  max-width: 560px; /* 기존 500px -> 560px 확장 */
+  max-width: 560px;
+  max-height: 85vh;
+  /* 화면 높이 대비 85% 최대치 설정 */
+  display: flex;
+  flex-direction: column;
   box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
   animation: modalSlideUp 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
 }
 
 /* Modal Variants */
 .modal-style-nickname {
-  max-width: 540px; /* 기존 480px -> 540px 확장 */
-  padding-top: 5.25rem !important; /* Adjust padding for larger offset avatar */
+  max-width: 540px;
+  padding: 5.25rem 0 2.25rem 0 !important;
+  /* 아바타 오버랩 마진 및 하단 풋터 마진 제어 */
 }
 
 .modal-style-keyword {
   padding: 0 !important;
   overflow: hidden;
-  max-width: 600px; /* 기존 520px -> 600px 확장 */
+  max-width: 600px;
 }
 
 /* A. Nickname Avatar Header (Overlap Floating) */
@@ -877,6 +968,8 @@ a {
   align-items: flex-start;
   text-align: left;
   margin-bottom: 1rem;
+  padding: 0 2.25rem;
+  /* 카드 패딩이 0이 됨에 따른 좌우 여백 적용 */
 }
 
 .modal-avatar-container {
@@ -888,7 +981,8 @@ a {
   height: 100px;
   border-radius: 50%;
   overflow: hidden;
-  border: 3px solid var(--card-bg); /* Mask border with modal background */
+  border: 3px solid var(--card-bg);
+  /* Mask border with modal background */
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
   background: var(--bg);
   z-index: 10;
@@ -925,7 +1019,8 @@ a {
 .modal-banner-container {
   position: relative;
   width: 100%;
-  aspect-ratio: 16 / 5.5; /* Slimmer banner ratio (approx. 2.9) */
+  aspect-ratio: 16 / 4;
+  /* 슬림 배너 비율 상향 (약 4.0) */
   overflow: hidden;
   background: var(--bg);
 }
@@ -946,12 +1041,56 @@ a {
 }
 
 .modal-banner-text-wrapper {
-  padding: 1.5rem 2.25rem 0.25rem; /* Reduced padding to make it more compact */
+  padding: 1.5rem 2.25rem 0.25rem;
+  /* Reduced padding to make it more compact */
+}
+
+/* B. Modal Body Content with Scroll */
+.modal-body-content {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  /* 본문 영역 세로 스크롤 허용 */
+}
+
+/* 얇고 깔끔한 모던 스크롤바 커스텀 */
+.modal-body-content::-webkit-scrollbar {
+  width: 5px;
+}
+
+.modal-body-content::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.modal-body-content::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 4px;
+}
+
+.modal-style-nickname .modal-body-content {
+  padding: 0.5rem 2.25rem 0.5rem 2.25rem;
 }
 
 /* Common Body Content Padding for Keyword Modal */
 .modal-style-keyword .modal-body-content {
-  padding: 0 2.25rem 2.25rem;
+  padding: 1rem 2.25rem 1.5rem;
+  /* 고정 배너 이미지 아래 본문 여백 조정 */
+}
+
+/* Core Value Modal Tab Transition Animation */
+@keyframes modal-tab-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.modal-tab-transition {
+  animation: modal-tab-fade-in 0.35s cubic-bezier(0.215, 0.61, 0.355, 1) forwards;
 }
 
 /* Close Button Overrides for Banner */
@@ -998,7 +1137,8 @@ a {
 
 .modal-badge {
   display: inline-block;
-  font-size: 0.8125rem; /* 기존 0.6875rem -> 0.8125rem(13px) 상향 */
+  font-size: 0.8125rem;
+  /* 기존 0.6875rem -> 0.8125rem(13px) 상향 */
   font-weight: 700;
   color: var(--accent);
   text-transform: uppercase;
@@ -1007,18 +1147,22 @@ a {
 }
 
 .modal-title {
-  font-size: 2rem; /* 기존 1.75rem -> 2rem(32px) 상향 */
+  font-size: 2rem;
+  /* 기존 1.75rem -> 2rem(32px) 상향 */
   font-weight: 700;
   color: var(--text-primary);
   margin: 0 0 1.25rem 0;
 }
 
 .modal-quote {
-  font-size: 1.125rem; /* 기존 1rem -> 1.125rem(18px) 상향 */
+  font-size: 1.125rem;
+  /* 기존 1rem -> 1.125rem(18px) 상향 */
   font-weight: 600;
-  line-height: 1.6; /* 가독성을 위한 line-height 상향 */
+  line-height: 1.6;
+  /* 가독성을 위한 line-height 상향 */
   color: var(--text-primary);
-  border-left: 2.5px solid var(--accent); /* 두께감 미세 상향 */
+  border-left: 2.5px solid var(--accent);
+  /* 두께감 미세 상향 */
   padding-left: 1rem;
   margin: 0 0 1.25rem 0;
 }
@@ -1030,12 +1174,18 @@ a {
 }
 
 .modal-desc {
-  font-size: 1rem; /* 기존 0.875rem -> 1rem(16px) 상향 */
-  line-height: 1.75; /* 가독성을 위한 line-height 조정 */
+  font-size: 1rem;
+  /* 기존 0.875rem -> 1rem(16px) 상향 */
+  line-height: 1.75;
+  /* 가독성을 위한 line-height 조정 */
   color: var(--text-secondary);
   margin: 0;
   white-space: pre-wrap;
   text-indent: 1rem;
+  text-align: justify;
+  /* 양쪽 정렬 적용 */
+  word-break: keep-all;
+  /* 단어가 쪼개지지 않도록 단어 단위 개행 지정 */
 }
 
 .modal-blog-link-wrapper {
@@ -1045,7 +1195,8 @@ a {
 }
 
 .modal-blog-link {
-  font-size: 0.9375rem; /* 기존 0.8125rem -> 0.9375rem(15px) 상향 */
+  font-size: 0.9375rem;
+  /* 기존 0.8125rem -> 0.9375rem(15px) 상향 */
   font-weight: 600;
   color: var(--accent);
   display: inline-flex;
@@ -1063,8 +1214,23 @@ a {
 
 /* Animations */
 @keyframes modalFadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes modalFadeOut {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
 }
 
 @keyframes modalSlideUp {
@@ -1072,9 +1238,22 @@ a {
     transform: translateY(30px);
     opacity: 0;
   }
+
   to {
     transform: translateY(0);
     opacity: 1;
+  }
+}
+
+@keyframes modalSlideDown {
+  from {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  to {
+    transform: translateY(30px);
+    opacity: 0;
   }
 }
 
@@ -1124,180 +1303,340 @@ a {
   transform: scale(1.05);
 }
 
-/* Interview Section & Magazine Q&A Styles */
+/* ==========================================================================
+   Interview Section & Editorial Spotlight Styles
+   ========================================================================== */
 .interview-section {
-  margin-top: 4rem;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 3rem;
+  position: relative;
+  z-index: 1;
+  transition: max-height 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+    margin-top 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+    box-shadow 0.3s ease,
+    border-color 0.3s ease,
+    transform 0.3s ease;
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
 }
 
+.interview-section.collapsed {
+  margin-top: -6.5rem;
+  /* 프로필 카드 뒤로 조금 더 겹치도록 설정 */
+  max-height: 140px;
+  /* 타이틀 부분과 "Self Interview" 텍스트만 보이도록 조절 */
+  padding-bottom: 0;
+  cursor: pointer;
+  box-shadow: var(--shadow-sm);
+}
+
+.interview-section.collapsed:hover {
+  border-color: var(--accent);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.interview-section.open {
+  margin-top: 2rem;
+  max-height: 2000px;
+  box-shadow: var(--shadow-lg);
+}
+
+/* 점진적으로 어두워지는/투명해지는 그라데이션 페이드 아웃 */
+.interview-section-fade {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 40px;
+  /* 기존 90px에서 40px로 축소하여 타이틀 텍스트 흐림 최소화 */
+  background: linear-gradient(to bottom, transparent, var(--card-bg));
+  pointer-events: none;
+  opacity: 1;
+  transition: opacity 0.4s ease;
+  z-index: 10;
+}
+
+.interview-section.open .interview-section-fade {
+  opacity: 0;
+}
+
+/* 1. Header Group */
+.interview-header-group {
+  margin-bottom: 2.5rem;
+  cursor: pointer;
+  user-select: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* 가로 중앙 정렬 */
+  text-align: center;
+  /* 텍스트 중앙 정렬 */
+  gap: 0.35rem;
+  width: 100%;
+}
+
+.interview-pre-title {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--accent);
+  margin-bottom: 0.15rem;
+}
+
+.interview-main-title {
+  font-family: var(--font-title);
+  font-size: 2.25rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin: 0;
+  letter-spacing: -0.02em;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.interview-toggle-arrow {
+  font-size: 1.5rem;
+  color: var(--text-muted);
+  transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+    color 0.3s ease,
+    opacity 0.3s ease;
+  line-height: 1;
+  display: inline-block;
+}
+
+.interview-toggle-arrow.open {
+  transform: rotate(180deg);
+  color: var(--accent);
+  animation: none;
+}
+
+@keyframes chevron-bounce-blink {
+
+  0%,
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  50% {
+    opacity: 0.3;
+    transform: translateY(4px);
+  }
+}
+
+.interview-section.collapsed .interview-toggle-arrow {
+  animation: chevron-bounce-blink 1.6s infinite ease-in-out;
+}
+
+.interview-lead-text {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  margin: 0.25rem 0 0 0;
+  opacity: 0.85;
+}
+
+/* 2. Grid Wrapper */
 .interview-magazine-wrapper {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 2.5rem;
-  margin-top: 2rem;
+  gap: 2rem;
+  align-items: start;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   .interview-magazine-wrapper {
-    grid-template-columns: 1fr 2.2fr;
+    grid-template-columns: 1fr 1.8fr;
     gap: 4rem;
   }
 }
 
-/* Left Column: Questions */
+/* 3. Left Question Cards */
 .magazine-questions-column {
   display: flex;
-  flex-direction: row;
-  overflow-x: auto;
-  gap: 0.5rem;
-  padding-bottom: 0.75rem;
-  border-bottom: 1px solid var(--border);
-  -webkit-overflow-scrolling: touch;
+  flex-direction: column;
+  gap: 0.75rem;
 }
 
-.magazine-questions-column::-webkit-scrollbar {
-  height: 4px;
-}
-
-.magazine-questions-column::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-.magazine-questions-column::-webkit-scrollbar-thumb {
-  background: var(--border);
-  border-radius: 4px;
-}
-
-@media (min-width: 768px) {
-  .magazine-questions-column {
-    flex-direction: column;
-    overflow-x: visible;
-    border-bottom: none;
-    border-right: 1px solid var(--border);
-    padding-bottom: 0;
-    padding-right: 2rem;
-    gap: 1rem;
-  }
-}
-
-.magazine-question-item {
-  background: none;
-  border: none;
-  padding: 0.5rem 0.75rem;
+.magazine-question-card {
+  position: relative;
   display: flex;
   align-items: center;
-  gap: 0.75rem;
-  text-align: left;
+  gap: 1.25rem;
+  padding: 1.25rem 1.5rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
   cursor: pointer;
-  transition: var(--transition);
-  border-radius: var(--radius);
-  flex-shrink: 0;
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  text-align: left;
+  overflow: hidden;
 }
 
-@media (min-width: 768px) {
-  .magazine-question-item {
-    padding: 0.75rem 1rem;
-    width: 100%;
-    border-left: 2px solid transparent;
-    border-radius: 0;
-  }
+/* Glassmorphism subtle hover & active effects */
+.magazine-question-card:hover {
+  background: var(--bg-hover);
+  border-color: var(--accent);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
 }
 
-.magazine-question-item:hover {
-  background-color: var(--accent-light);
+.magazine-question-card.active {
+  background: var(--accent-light);
+  border-color: var(--accent);
+  box-shadow: var(--shadow-md);
 }
 
-.magazine-question-item.active {
-  background-color: var(--accent-light);
+/* Left vertical indicator line */
+.magazine-question-card .card-indicator {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: var(--accent);
+  transform: scaleY(0);
+  transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
-@media (min-width: 768px) {
-  .magazine-question-item.active {
-    border-left-color: var(--accent);
-    background-color: transparent;
-  }
+.magazine-question-card.active .card-indicator {
+  transform: scaleY(1);
 }
 
+/* Number Index Badge */
 .magazine-question-num {
   font-family: var(--font-title);
-  font-size: 0.8125rem;
-  font-weight: 700;
+  font-size: 1.25rem;
+  font-weight: 800;
   color: var(--text-muted);
-  transition: var(--transition);
+  transition: color 0.3s ease;
 }
 
-.magazine-question-item.active .magazine-question-num {
+.magazine-question-card.active .magazine-question-num {
+  color: var(--accent);
+}
+
+/* Text group */
+.card-text-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.card-category-tag {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+  transition: color 0.3s ease;
+}
+
+.magazine-question-card.active .card-category-tag {
   color: var(--accent);
 }
 
 .magazine-question-text {
-  font-size: 0.8125rem;
+  font-size: 0.9375rem;
   font-weight: 600;
   color: var(--text-secondary);
-  transition: var(--transition);
-  white-space: nowrap;
+  transition: color 0.3s ease;
+  line-height: 1.4;
 }
 
-@media (min-width: 768px) {
-  .magazine-question-text {
-    white-space: normal;
-    font-size: 0.9375rem;
-  }
-}
-
-.magazine-question-item.active .magazine-question-text {
+.magazine-question-card.active .magazine-question-text {
   color: var(--text-primary);
   font-weight: 700;
 }
 
-/* Right Column: Answers */
+/* 4. Right Editorial Answer Panel */
 .magazine-answer-column {
-  min-height: 220px;
   position: relative;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 2.5rem;
+  min-height: 320px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+
+@media (min-width: 768px) {
+  .magazine-answer-column {
+    padding: 3.5rem;
+  }
+}
+
+/* Decorative giant interrobang */
+.giant-interrobang-mark {
+  position: absolute;
+  bottom: -3.5rem;
+  right: 1.5rem;
+  font-size: 20rem;
+  font-weight: 500;
+  color: var(--accent);
+  opacity: 0.08;
+  pointer-events: none;
+  line-height: 1;
+  z-index: 0;
+  transform: rotate(-10deg);
 }
 
 .magazine-answer-content {
   display: flex;
   flex-direction: column;
-  gap: 1.25rem;
+  gap: 1.5rem;
+  position: relative;
+  z-index: 1;
 }
 
 .magazine-answer-category {
+  display: inline-block;
   font-size: 0.75rem;
   font-weight: 700;
-  color: var(--accent);
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.1em;
+  color: var(--accent);
 }
 
-.magazine-blockquote {
+.magazine-answer-headline {
   font-family: var(--font-sans);
-  font-size: 1.25rem;
-  font-weight: 600;
-  line-height: 1.5;
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1.4;
   color: var(--text-primary);
-  border-left: 3px solid var(--accent);
-  padding-left: 1.25rem;
   margin: 0;
-  font-style: italic;
+  letter-spacing: -0.01em;
 }
 
 @media (min-width: 768px) {
-  .magazine-blockquote {
-    font-size: 1.5rem;
+  .magazine-answer-headline {
+    font-size: 1.75rem;
   }
 }
 
 .magazine-desc-text {
-  font-size: 0.9375rem;
-  line-height: 1.7;
+  font-size: 1rem;
+  line-height: 1.8;
   color: var(--text-secondary);
+  margin: 0;
+  text-align: justify;
+  word-break: keep-all;
 }
 
-/* Tab Fade In Animation */
-@keyframes magazine-fade-in {
+/* 5. Staggered Slide-up Animation */
+@keyframes editorial-slide-up {
   from {
     opacity: 0;
-    transform: translateY(8px);
+    transform: translateY(15px);
   }
 
   to {
@@ -1306,8 +1645,23 @@ a {
   }
 }
 
-.fade-in-active {
-  animation: magazine-fade-in 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+.magazine-answer-content .delay-1,
+.magazine-answer-content .delay-2,
+.magazine-answer-content .delay-3 {
+  opacity: 0;
+  animation: editorial-slide-up 0.6s cubic-bezier(0.215, 0.61, 0.355, 1) forwards;
+}
+
+.magazine-answer-content .delay-1 {
+  animation-delay: 50ms;
+}
+
+.magazine-answer-content .delay-2 {
+  animation-delay: 150ms;
+}
+
+.magazine-answer-content .delay-3 {
+  animation-delay: 250ms;
 }
 
 /* Bento Grid Layout */
