@@ -1,5 +1,6 @@
 import React from 'react';
 import type { Experience as ExperienceType, Certificate } from '../data/types';
+import { Award } from 'lucide-react';
 
 interface ExperienceProps {
   experienceList: ExperienceType[];
@@ -65,7 +66,7 @@ const Experience: React.FC<ExperienceProps> = ({ experienceList, certificates })
               {certificates.map((cert) => (
                 <div key={cert.id} className="cert-card">
                   <div className="cert-header-row">
-                    <span className="cert-icon">📜</span>
+                    <Award size={18} className="cert-icon" />
                     <span className="cert-date">{cert.date}</span>
                   </div>
                   <h4 className="cert-name">{cert.name}</h4>

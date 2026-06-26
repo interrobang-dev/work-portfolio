@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import type { Troubleshooting } from '../data/types';
+import { ChevronDown, Wrench } from 'lucide-react';
 
 interface TroubleshootingAccordionProps {
   data: Troubleshooting;
@@ -16,18 +17,11 @@ const TroubleshootingAccordion: React.FC<TroubleshootingAccordionProps> = ({ dat
         onClick={() => setIsOpen(!isOpen)}
         aria-expanded={isOpen}
       >
-        <span className="trigger-title">🛠️ 기술적 트러블슈팅 및 리팩토링 과정 보기</span>
-        <svg
-          className="trigger-icon"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2.5"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <polyline points="6 9 12 15 18 9"></polyline>
-        </svg>
+        <span className="trigger-title">
+          <Wrench size={16} className="trigger-title-icon" />
+          기술적 트러블슈팅 및 리팩토링 과정 보기
+        </span>
+        <ChevronDown className="trigger-icon" size={20} />
       </button>
       <div className="accordion-content">
         <div className="accordion-body">

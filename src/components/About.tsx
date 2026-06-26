@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import type { Profile, InterviewQuestion } from '../data/types';
 import { keywordStories } from '../data/portfolioData';
+import { User, Info, ChevronDown, ArrowRight } from 'lucide-react';
 
 interface AboutProps {
   profile: Profile;
@@ -37,6 +38,19 @@ const About: React.FC<AboutProps> = ({ profile, interviewQuestions }) => {
 
   // Self Interview Fold/Unfold State
   const [isInterviewOpen, setIsInterviewOpen] = useState<boolean>(false);
+  const interviewSectionRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (isInterviewOpen && interviewSectionRef.current) {
+      const timer = setTimeout(() => {
+        interviewSectionRef.current?.scrollIntoView({
+          behavior: 'smooth',
+          block: 'center'
+        });
+      }, 120);
+      return () => clearTimeout(timer);
+    }
+  }, [isInterviewOpen]);
 
   const handleSectionClick = () => {
     if (!isInterviewOpen) {
@@ -115,9 +129,7 @@ const About: React.FC<AboutProps> = ({ profile, interviewQuestions }) => {
                 className="profile-photo-placeholder"
                 style={{ display: profile.avatarUrl ? 'none' : 'flex' }}
               >
-                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM12 6C13.93 6 15.5 7.57 15.5 9.5C15.5 11.43 13.93 13 12 13C10.07 13 8.5 11.43 8.5 9.5C8.5 7.57 10.07 6 12 6ZM12 20C9.08 20 6.54 18.52 5.07 16.28C5.1 13.97 9.68 12.7 12 12.7C14.3 12.7 18.88 13.97 19.03 16.28C17.56 18.52 15.02 20 12 20Z" fill="currentColor" />
-                </svg>
+                <User size={64} strokeWidth={1} />
                 <span className="placeholder-text">Photo Frame</span>
               </div>
             </div>
@@ -154,7 +166,7 @@ const About: React.FC<AboutProps> = ({ profile, interviewQuestions }) => {
                   })}
                 >
                   <span className="nickname-value">{profile.nickname}</span>
-                  <span className="nickname-toggle-icon">ⓘ</span>
+                  <span className="nickname-toggle-icon"><Info size={14} /></span>
                 </button>
               </div>
 
@@ -179,7 +191,7 @@ const About: React.FC<AboutProps> = ({ profile, interviewQuestions }) => {
                       }}
                     >
                       <span className="keyword-value">{story.keyword}</span>
-                      <span className="keyword-info-icon">ⓘ</span>
+                      <span className="keyword-info-icon"><Info size={14} /></span>
                     </button>
                   ))}
                 </div>
@@ -225,9 +237,7 @@ const About: React.FC<AboutProps> = ({ profile, interviewQuestions }) => {
                       }}
                     />
                     <div className="modal-avatar-fallback" style={{ display: 'none' }}>
-                      <svg viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z" />
-                      </svg>
+                      <User size={48} strokeWidth={1.5} />
                     </div>
                   </div>
                   <span className="modal-badge">{activeModal.badge}</span>
@@ -275,7 +285,7 @@ const About: React.FC<AboutProps> = ({ profile, interviewQuestions }) => {
                       rel="noopener noreferrer"
                       className="modal-blog-link"
                     >
-                      블로그에서 관련 글 읽기 ➔
+                      블로그에서 관련 글 읽기 <ArrowRight size={14} className="modal-blog-link-arrow" />
                     </a>
                   </div>
                 )}
@@ -307,6 +317,7 @@ const About: React.FC<AboutProps> = ({ profile, interviewQuestions }) => {
 
         {/* 2. Self Interview Section - Editorial Spotlight Layout (Hidden under profile card, expandable) */}
         <div
+          ref={interviewSectionRef}
           className={`interview-section ${isInterviewOpen ? 'open' : 'collapsed'}`}
           onClick={handleSectionClick}
         >
@@ -320,9 +331,7 @@ const About: React.FC<AboutProps> = ({ profile, interviewQuestions }) => {
             <span className="interview-pre-title">Editorial Spotlight</span>
             <h3 className="about-subtitle interview-main-title">
               Self Interview
-              <span className={`interview-toggle-arrow ${isInterviewOpen ? 'open' : ''}`}>
-                ▾
-              </span>
+              <ChevronDown className={`interview-toggle-arrow ${isInterviewOpen ? 'open' : ''}`} size={20} />
             </h3>
             <p className="interview-lead-text">
               엔지니어로서의 가치관과 개발을 대하는 태도에 관한 자문자답입니다.
